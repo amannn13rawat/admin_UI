@@ -3,13 +3,15 @@ import BottomBtn from "./components/BottomBtn";
 import Navbar from "./components/Bars/Navbar";
 import ProblemStatement from "./components/ProblemStatement";
 import MidBody from "./components/MidBody";
+import AddPopup from "./components/AddPopup";
+
 
 function App() {
   return (
     <div className="App">
       <Navbar></Navbar>
-      {/* <p>Space between</p> */}
       <ProblemStatement></ProblemStatement>
+      {/* <AddPopup></AddPopup> */}
       <MidBody></MidBody>
       <BottomBtn></BottomBtn>
       <Footer></Footer>

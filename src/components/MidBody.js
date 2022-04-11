@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import Boxes from "./Boxes";
 import Box2 from "./Box2";
-import BottomBtn from "./BottomBtn";
+
 
 const btns = [
   {
