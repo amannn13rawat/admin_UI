@@ -5,12 +5,17 @@ const Container = styled.div`
   /* height: 120px; */
 
   width: 100%;
-  /* background-color: green; */
+  background-color: pink;
+  height:120px;
+  margin:0;
+  
 `;
 
 const Wrapper = styled.div`
-  padding :20px 30px;
+  padding :40px 30px;
   margin-right: 20px;
+  /* margin-top: 20px; */
+  
 `;
 
 const ProblemBox = styled.textarea`
@@ -18,11 +23,12 @@ const ProblemBox = styled.textarea`
     margin-right: 30px; */
   border-radius: 10px;
   padding: 10px;
-  display: flex;
+  /* display: flex; */
   background: #c4c4c4;
-  height: 65px;
+  height: 50px;
   width: 100%;
   border: none;
+  
 `;
 
 function ProblemStatement() {

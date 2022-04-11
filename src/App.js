@@ -6,12 +6,12 @@ import MidBody from "./components/MidBody";
 import AddPopup from "./components/AddPopup";
 
 
+
 function App() {
   return (
     <div className="App">
       <Navbar></Navbar>
       <ProblemStatement></ProblemStatement>
-      {/* <AddPopup></AddPopup> */}
       <MidBody></MidBody>
       <BottomBtn></BottomBtn>
       <Footer></Footer>

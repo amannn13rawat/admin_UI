@@ -1,35 +1,31 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+// import './AddPopup.css'
 
-const Container = styled.div`
+const PopupContainer = styled.div`
+  top: 60px;
+  left: 540px;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding:0px 550px;
-  border-radius: 10px;
-  background-color: white;
-  align-items: center;
+  background-color: blue;
+  border-radius: 5px;
+  z-index: 100 !important;
+  width: 300px;
+`;
+
+const PopupText = styled.div`
+  /* background-color: white; */
+  /* left: 400px; */
+  text-align: center;
   justify-content: center;
+  padding: 3px 10px;
 `;
 
-const Wrapper = styled.div`
-  position: relative;
-  padding: 10px 10px ;
-  /* width: 100%; */
-  background-color: white;
-  /* max-width: 640px;
-  border-radius: 10px; */
-  font-size: 10px;
- 
-`;
-
-function AddPopup(props) {
-  return (props.trigger) ? (
-    <Container>
-      <Wrapper>{props.children}</Wrapper>
-    </Container>
-  ) : "";
+function AddPopup() {
+  return (
+    <PopupContainer>
+      <PopupText>Add Test Cases </PopupText>
+    </PopupContainer>
+  );
 }
 
-export default AddPopup
+export default AddPopup;

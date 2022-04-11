@@ -14,9 +14,11 @@ const btns = [
 ];
 
 const Container = styled.div`
-  /* background-color: green; */
+  background-color: yellow;
   width: 100%;
   display: flex;
+  height:calc(100vh-190px);
+
   
    /* align-items: center; */
   /* justify-content: center;

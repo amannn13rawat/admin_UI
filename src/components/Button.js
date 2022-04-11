@@ -4,7 +4,7 @@ import AddPopup from "./AddPopup";
 
 const Container = styled.div`
   flex: 1;
-  /* background-color: green; */
+  background-color: green;
   position: relative;
 
   /* height: 100%; */
@@ -102,9 +102,7 @@ function Button(props) {
         <ButtonAdd onClick={() => setButtonPopup(true)}>
           {props.items[0].Add}
         </ButtonAdd>
-        <AddPopup trigger={buttonPopup} setTrigger={setButtonPopup}>
-          <h2>Test cases added</h2>
-        </AddPopup>
+        {buttonPopup && <AddPopup/>}
         <ButtonRemove>{props.items[0].Remove}</ButtonRemove>
         <ButtonRun>{props.items[0].Run}</ButtonRun>
       </Wrapper>
