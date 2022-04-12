@@ -14,7 +14,7 @@ const btns = [
 ];
 
 const Container = styled.div`
-  background-color: yellow;
+  /* background-color: yellow; */
   width: 100%;
   display: flex;
   height:calc(100vh-190px);

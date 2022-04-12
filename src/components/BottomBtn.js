@@ -1,9 +1,11 @@
+import { useState } from "react";
 import styled from "styled-components";
+import SearchPopup from "./SearchPopup";
 
 const Container = styled.div`
-  background-color: orange;
-  /* display:flex;
-  flex:1; */
+  /* background-color: orange;
+  /* display:flex; */
+  flex:1; 
   height: 40px;
 
   
@@ -51,10 +53,17 @@ const ButtonClear = styled.button`
 `;
 
 function BottomBtn() {
+  
+  const[showClickPopup,setShowClickPopup] = useState(false)
+  
+  function popupHandler(){
+    setShowClickPopup(true)
+  }
   return (
     <Container>
       <Wrapper>
-        <ButtonSubmit>Submit</ButtonSubmit>
+        <ButtonSubmit onClick={popupHandler}>Submit</ButtonSubmit>
+        {showClickPopup && <SearchPopup closedPopup={setShowClickPopup} ></SearchPopup>}
         <ButtonClear>Clear</ButtonClear>
       </Wrapper>
     </Container>

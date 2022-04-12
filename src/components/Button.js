@@ -4,7 +4,7 @@ import AddPopup from "./AddPopup";
 
 const Container = styled.div`
   flex: 1;
-  background-color: green;
+  /* background-color: green; */
   position: relative;
 
   /* height: 100%; */
@@ -95,15 +95,18 @@ const ButtonRun = styled.button`
 `;
 
 function Button(props) {
-  const [buttonPopup, setButtonPopup] = useState(false);
+  const [popupType, setPopupType] = useState("");
   return (
     <Container>
       <Wrapper>
-        <ButtonAdd onClick={() => setButtonPopup(true)}>
+        <ButtonAdd onClick={() => setPopupType("Add")}>
           {props.items[0].Add}
         </ButtonAdd>
-        {buttonPopup && <AddPopup/>}
-        <ButtonRemove>{props.items[0].Remove}</ButtonRemove>
+        {popupType === "Add" && <AddPopup type="Add" color="#00C853"></AddPopup>}
+        <ButtonRemove onClick={() => setPopupType("Remove")}>
+          {props.items[0].Remove}
+        </ButtonRemove>
+        {popupType === "Remove" && <AddPopup type="Remove" color="#B71C1C"></AddPopup>}
         <ButtonRun>{props.items[0].Run}</ButtonRun>
       </Wrapper>
     </Container>

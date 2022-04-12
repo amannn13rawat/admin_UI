@@ -5,7 +5,7 @@ const Container = styled.div`
   /* height: 120px; */
 
   width: 100%;
-  background-color: pink;
+  /* background-color: pink; */
   height:120px;
   margin:0;
   
