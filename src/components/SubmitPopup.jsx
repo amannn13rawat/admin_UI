@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
   /* width: 100vw;
   height: 100vh; */
-  background-color: #0D47A1;
+  background-color: #0d47a1;
   position: absolute;
   bottom: 230px;
   left: 440px;
@@ -12,7 +12,7 @@ const Container = styled.div`
   z-index: 100 !important;
   border-radius: 5px;
   height: 85px;
-  color:#ffffff;
+  color: #ffffff;
   /* display: flex; */
   /* justify-content: space-around;
    align-items: center; */
@@ -20,7 +20,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   padding: 15px 60px;
-  text-align: center; 
+  text-align: center;
   justify-content: center;
   /* align-items: center; */
 `;
@@ -35,18 +35,17 @@ const ButtonSubmitContainer = styled.div`
   padding: 10px 30px;
   display: flex;
   /* background-color: pink; */
-  
+
   /* align-items: center; */
 `;
 
 const ButtonOkayContainer = styled.div`
-
   display: flex;
   align-items: center;
   justify-content: center;
   /* background-color: pink; */
   margin-top: 15px;
-  
+
   /* align-items: center; */
 `;
 
@@ -59,7 +58,7 @@ const ButtonSubmit = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin-right:20px;
+  margin-right: 20px;
   color: #ffffff;
   background-color: #00c853;
 `;
@@ -73,11 +72,10 @@ const ButtonCancel = styled.button`
   justify-content: center;
   cursor: pointer;
   color: #ffffff;
-  background-color: #B71c1c;
+  background-color: #b71c1c;
 `;
 
 const ButtonOkay = styled.button`
-
   width: 130px;
   border: none;
   border-radius: 5px;
@@ -87,18 +85,33 @@ const ButtonOkay = styled.button`
   justify-content: center;
   cursor: pointer;
   color: #ffffff;
-  background-color: #00c853 ;
+  background-color: #00c853;
 `;
 
-function SearchPopup({closedPopup}) {
+function SubmitPopup({ closedPopup }) {
   const [openPopup, setOpenPopup] = useState(false);
+  let popupText = useRef();
 
   function submitPopupHandler() {
     setOpenPopup(!openPopup);
   }
+
+  useEffect(() => {
+    let handler = (event) => {
+      if (!popupText.current.contains(event.target)) {
+        closedPopup(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
+
   return (
     <>
-      <Container>
+      <Container ref={popupText}>
         <Wrapper>
           <PopupText>Do You Want to Submit the problem Statement?</PopupText>
           <ButtonSubmitContainer>
@@ -108,16 +121,18 @@ function SearchPopup({closedPopup}) {
         </Wrapper>
       </Container>
 
-      {openPopup && <Container>
-        <Wrapper>
-          <PopupText>Successfully submitted the problem statement!</PopupText>
-          <ButtonOkayContainer>
-            <ButtonOkay onClick={()=> closedPopup(false)}>Okay!</ButtonOkay>
-          </ButtonOkayContainer>
-        </Wrapper>
-      </Container>}
+      {openPopup && (
+        <Container ref={popupText}>
+          <Wrapper>
+            <PopupText>Successfully submitted the problem statement!</PopupText>
+            <ButtonOkayContainer>
+              <ButtonOkay onClick={() => closedPopup(false)}>Okay!</ButtonOkay>
+            </ButtonOkayContainer>
+          </Wrapper>
+        </Container>
+      )}
     </>
   );
 }
 
-export default SearchPopup;
+export default SubmitPopup;

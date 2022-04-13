@@ -3,7 +3,7 @@ import BottomBtn from "./components/BottomBtn";
 import Navbar from "./components/Bars/Navbar";
 import ProblemStatement from "./components/ProblemStatement";
 import MidBody from "./components/MidBody";
-import AddPopup from "./components/AddPopup";
+
 
 
 

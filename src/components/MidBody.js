@@ -5,13 +5,13 @@ import Boxes from "./Boxes";
 import Box2 from "./Box2";
 
 
-const btns = [
-  {
-    Add: "Add",
-    Remove: "Remove",
-    Run: "Run",
-  },
-];
+// const btns = [
+//   {
+//     Add: "Add",
+//     Remove: "Remove",
+//     Run: "Run",
+//   },
+// ];
 
 const Container = styled.div`
   /* background-color: yellow; */
@@ -30,7 +30,7 @@ function MidBody() {
   return (
     <Container>
       <Boxes></Boxes>
-      <Button items={btns}></Button>
+      <Button ></Button>
       <Box2></Box2>
      
 

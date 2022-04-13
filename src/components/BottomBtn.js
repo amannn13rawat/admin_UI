@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import SearchPopup from "./SearchPopup";
+import SubmitPopup from "./SubmitPopup";
 
 const Container = styled.div`
   /* background-color: orange;
@@ -56,14 +56,14 @@ function BottomBtn() {
   
   const[showClickPopup,setShowClickPopup] = useState(false)
   
-  function popupHandler(){
-    setShowClickPopup(true)
-  }
+  // function popupHandler(){
+  //   setShowClickPopup(true)
+  // }
   return (
     <Container>
       <Wrapper>
-        <ButtonSubmit onClick={popupHandler}>Submit</ButtonSubmit>
-        {showClickPopup && <SearchPopup closedPopup={setShowClickPopup} ></SearchPopup>}
+        <ButtonSubmit onClick={() => setShowClickPopup(true) }>Submit</ButtonSubmit>
+        {showClickPopup && <SubmitPopup closedPopup={setShowClickPopup} ></SubmitPopup>}
         <ButtonClear>Clear</ButtonClear>
       </Wrapper>
     </Container>

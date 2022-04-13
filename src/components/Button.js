@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AddPopup from "./AddPopup";
+import Popup from "./Popup";
 
 const Container = styled.div`
   flex: 1;
@@ -96,18 +96,52 @@ const ButtonRun = styled.button`
 
 function Button(props) {
   const [popupType, setPopupType] = useState("");
+
+  
+
+  // function addPopupHandler() {
+  //   setPopupType("Add")
+  //   setPopupType("");
+  // }
+  // function removePopupHandler() {
+  //   setPopupType("Remove");
+  // }
+
   return (
     <Container>
       <Wrapper>
-        <ButtonAdd onClick={() => setPopupType("Add")}>
-          {props.items[0].Add}
-        </ButtonAdd>
-        {popupType === "Add" && <AddPopup type="Add" color="#00C853"></AddPopup>}
+        <ButtonAdd onClick={() => setPopupType("Add")}>Add</ButtonAdd>
+        {popupType === "Add" && (
+          <Popup
+            color="#00C853"
+            closePopup={setPopupType}
+            text="Test cases added successfully!"
+          ></Popup>
+        )}
         <ButtonRemove onClick={() => setPopupType("Remove")}>
-          {props.items[0].Remove}
+          Remove
         </ButtonRemove>
-        {popupType === "Remove" && <AddPopup type="Remove" color="#B71C1C"></AddPopup>}
-        <ButtonRun>{props.items[0].Run}</ButtonRun>
+        {popupType === "Remove" && (
+          <Popup
+            color="#B71C1C"
+            closePopup={setPopupType}
+            text="Test cases removed successfully!"
+          ></Popup>
+        )}
+        <ButtonRun onClick={() => setPopupType("Run")}>Run</ButtonRun>
+        {popupType === "Run" &&
+        
+          
+
+              <Popup
+                color="#B71C1C"
+                closePopup={setPopupType}
+                text="Validating Test Cases!"
+              ></Popup> 
+            
+             
+            
+          }
       </Wrapper>
     </Container>
   );
