@@ -29,15 +29,17 @@ const PopupText = styled.div`
   font-size: 13px;
 `;
 
-function Popup({ color, closePopup, text }) {
+function Popup({ color, text, parentCallback}) {
   let popupText = useRef();
 
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
+      // !parentRef.current.contains(event.target)
       if (!popupText.current.contains(event.target)) {
         console.log("render");
         // console.log(popupText.current)
-        closePopup(false);
+        // closePopup(false);
+        parentCallback(false,event);
       }
     });
   });

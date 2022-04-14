@@ -1,5 +1,5 @@
 import { pink } from "@mui/material/colors";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Popup from "./Popup";
 
@@ -114,20 +114,14 @@ function Button(props) {
   const [runBtn1, setRunBtn1] = useState(false);
   const [runBtn2, setRunBtn2] = useState(false);
   const [runBtn3, setRunBtn3] = useState(false);
-  // const [popupType, setPopupType] = useState("");
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     runPopup.map((run) => (
-  //       <Popup
-  //         color={run.color}
-  //         closePopup={setPopupType}
-  //         text={run.text}
-  //       ></Popup>
-  //     ));
-  //   }, 1000);
-  //   return () => clearTimeout(timer);
-  // }, [popupType==="Run"]);
+  const addRef = useRef();
+
+  const handleCallback=(stateReplied,event)=>{
+    if(!addRef.current.contains(event.target))
+       setPopupAddType(stateReplied);
+  }
+  console.log(addRef);
 
   //map can be used to loop through an array
   const runClickHandler = () => {
@@ -143,13 +137,15 @@ function Button(props) {
   return (
     <Container>
       <Wrapper>
-        <ButtonAdd onClick={() => setPopupAddType(!popupAddType)}>
+        <ButtonAdd ref={addRef} onClick={() => setPopupAddType(!popupAddType)}>
           Add
         </ButtonAdd>
         {popupAddType && (
           <Popup
             color="#00C853"
-            closePopup={setPopupAddType}
+            // parentRef={addRef}
+            // closePopup={setPopupAddType}
+            parentCallback={handleCallback}
             text="Test cases added successfully!"
           ></Popup>
         )}
