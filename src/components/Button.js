@@ -106,9 +106,14 @@ const ButtonRun = styled.button`
 //   },
 // ];
 
+// const runBtnTxt = ["1", "2", "3"];
+
 function Button(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
+  const [runBtn1, setRunBtn1] = useState(false);
+  const [runBtn2, setRunBtn2] = useState(false);
+  const [runBtn3, setRunBtn3] = useState(false);
   // const [popupType, setPopupType] = useState("");
 
   // useEffect(() => {
@@ -121,16 +126,26 @@ function Button(props) {
   //       ></Popup>
   //     ));
   //   }, 1000);
-
   //   return () => clearTimeout(timer);
   // }, [popupType==="Run"]);
 
-
+  //map can be used to loop through an array
+  const runClickHandler = () => {
+    setRunBtn1(true);
+    setTimeout(() => {
+      setRunBtn2(true);
+    }, 1500);
+    setTimeout(() => {
+      setRunBtn3(true);
+    }, 2500);
+  };
 
   return (
     <Container>
       <Wrapper>
-        <ButtonAdd onClick={() => setPopupAddType((!popupAddType))}>Add</ButtonAdd>
+        <ButtonAdd onClick={() => setPopupAddType(!popupAddType)}>
+          Add
+        </ButtonAdd>
         {popupAddType && (
           <Popup
             color="#00C853"
@@ -141,16 +156,17 @@ function Button(props) {
         <ButtonRemove onClick={() => setPopupRemoveType(true)}>
           Remove
         </ButtonRemove>
-        {popupRemoveType  && (
+        {popupRemoveType && (
           <Popup
             color="#B71C1C"
             closePopup={setPopupRemoveType}
             text="Test cases removed successfully!"
           ></Popup>
         )}
-        <ButtonRun>Run</ButtonRun>
-        {/* {popupType === "Run" &&
-          } */}
+        <ButtonRun onClick={() => runClickHandler()}>Run</ButtonRun>
+        {runBtn1 && <Popup color="red" closePopup={setRunBtn1} text="1!"></Popup>}
+        {runBtn2 && <Popup color="yellow" closePopup={setRunBtn2} text="2!"></Popup>}
+        {runBtn3 && <Popup color="green" closePopup={setRunBtn3} text="3!"></Popup>}
       </Wrapper>
     </Container>
   );
