@@ -116,21 +116,33 @@ function Button(props) {
   const [runBtn3, setRunBtn3] = useState(false);
 
   const addRef = useRef();
+  const removeRef = useRef();
+  const runRef = useRef();
 
-  const handleCallback=(stateReplied,event)=>{
-    if(!addRef.current.contains(event.target))
-       setPopupAddType(stateReplied);
-  }
+  //Removing mousedown EVnt listener.
+  const handleCallback = (stateReplied, event) => {
+    if (
+      !addRef.current.contains(event.target) &&
+      !removeRef.current.contains(event.target) &&
+      !runRef.current.contains(event.target)
+    ) {
+      setPopupAddType(stateReplied);
+      setPopupRemoveType(stateReplied);
+      setRunBtn1(stateReplied)
+      setRunBtn2(stateReplied)
+      setRunBtn3(stateReplied)
+    }
+  };
   console.log(addRef);
 
   //map can be used to loop through an array
   const runClickHandler = () => {
-    setRunBtn1(true);
+    setRunBtn1(!runBtn1);
     setTimeout(() => {
-      setRunBtn2(true);
+      setRunBtn2(!runBtn2);
     }, 1500);
     setTimeout(() => {
-      setRunBtn3(true);
+      setRunBtn3(!runBtn3);
     }, 2500);
   };
 
@@ -149,20 +161,46 @@ function Button(props) {
             text="Test cases added successfully!"
           ></Popup>
         )}
-        <ButtonRemove onClick={() => setPopupRemoveType(true)}>
+        <ButtonRemove
+          ref={removeRef}
+          onClick={() => setPopupRemoveType(!popupRemoveType)}
+        >
           Remove
         </ButtonRemove>
         {popupRemoveType && (
           <Popup
             color="#B71C1C"
-            closePopup={setPopupRemoveType}
+            parentCallback={handleCallback}
             text="Test cases removed successfully!"
           ></Popup>
         )}
-        <ButtonRun onClick={() => runClickHandler()}>Run</ButtonRun>
-        {runBtn1 && <Popup color="red" closePopup={setRunBtn1} text="1!"></Popup>}
-        {runBtn2 && <Popup color="yellow" closePopup={setRunBtn2} text="2!"></Popup>}
-        {runBtn3 && <Popup color="green" closePopup={setRunBtn3} text="3!"></Popup>}
+        <ButtonRun ref={runRef} onClick={() => runClickHandler()}>
+          Run
+        </ButtonRun>
+        {runBtn1 && (
+          <Popup
+            color="red"
+            parentCallback={handleCallback}
+          
+            text="1!"
+          ></Popup>
+        )}
+        {runBtn2 && (
+          <Popup
+            color="yellow"
+            parentCallback={handleCallback}
+            
+            text="2!"
+          ></Popup>
+        )}
+        {runBtn3 && (
+          <Popup
+            color="green"
+            parentCallback={handleCallback}
+            
+            text="3!"
+          ></Popup>
+        )}
       </Wrapper>
     </Container>
   );
