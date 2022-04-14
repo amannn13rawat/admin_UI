@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const PopupContainer = styled.div`
   top: 57px;
-  left: 440px;
+  left: 550px;
   position: fixed;
   background-color: ${(props) => props.bgcolor};
   border-radius: 5px;
@@ -37,7 +37,7 @@ function Popup({ color, closePopup, text }) {
       if (!popupText.current.contains(event.target)) {
         console.log("render");
         // console.log(popupText.current)
-        closePopup("");
+        closePopup(false);
       }
     });
   });

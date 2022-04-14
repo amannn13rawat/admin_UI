@@ -59,14 +59,16 @@ function BottomBtn() {
   // function popupHandler(){
   //   setShowClickPopup(true)
   // }
+  console.log(showClickPopup);
   return (
     <Container>
       <Wrapper>
-        <ButtonSubmit onClick={() => setShowClickPopup(true) }>Submit</ButtonSubmit>
+        <ButtonSubmit onClick={() => setShowClickPopup((!showClickPopup) )}>Submit</ButtonSubmit>
         {showClickPopup && <SubmitPopup closedPopup={setShowClickPopup} ></SubmitPopup>}
         <ButtonClear>Clear</ButtonClear>
       </Wrapper>
     </Container>
+
   );
 }
 

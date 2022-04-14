@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding-top: 20px;
+  padding-top: 5px;
   padding-left: 30px;
 
   padding-right: 50px;
@@ -20,7 +20,7 @@ const Content = styled.textarea`
   background: #c4c4c4;
   padding: 10px;
   /* margin-top: 10px; */
-  height: 440px;
+  height: 442px;
   width: 100%;
   border: none;
 `;

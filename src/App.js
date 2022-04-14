@@ -10,7 +10,9 @@ import MidBody from "./components/MidBody";
 function App() {
   return (
     <div className="App">
+      
       <Navbar></Navbar>
+      {/* <p>aman</p> */}
       <ProblemStatement></ProblemStatement>
       <MidBody></MidBody>
       <BottomBtn></BottomBtn>

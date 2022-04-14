@@ -17,7 +17,7 @@ const Container = styled.div`
   /* background-color: yellow; */
   width: 100%;
   display: flex;
-  height:calc(100vh-190px);
+  /* height: 100px; */
 
   
    /* align-items: center; */

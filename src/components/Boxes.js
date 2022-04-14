@@ -13,9 +13,10 @@ const Container=styled.div`
 const Wrapper=styled.div`
     /* background-color: green; */
     /* padding: 20px 30px  ; */
-    padding-top: 20px;
+    padding-top: 5px;
   padding-left: 30px;
   padding-right: 50px;
+  /* padding-bottom: 20px; */
 `;
 
 const Content=styled.textarea`

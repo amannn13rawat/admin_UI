@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { pink } from "@mui/material/colors";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Popup from "./Popup";
 
@@ -94,54 +95,62 @@ const ButtonRun = styled.button`
   cursor: pointer;
 `;
 
+// const runPopup = [
+//   {
+//     color: "pink",
+//     text: "runnning text",
+//   },
+//   {
+//     color: "yellow",
+//     text: "succesfully",
+//   },
+// ];
+
 function Button(props) {
-  const [popupType, setPopupType] = useState("");
+  const [popupAddType, setPopupAddType] = useState(false);
+  const [popupRemoveType, setPopupRemoveType] = useState(false);
+  // const [popupType, setPopupType] = useState("");
 
-  
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     runPopup.map((run) => (
+  //       <Popup
+  //         color={run.color}
+  //         closePopup={setPopupType}
+  //         text={run.text}
+  //       ></Popup>
+  //     ));
+  //   }, 1000);
 
-  // function addPopupHandler() {
-  //   setPopupType("Add")
-  //   setPopupType("");
-  // }
-  // function removePopupHandler() {
-  //   setPopupType("Remove");
-  // }
+  //   return () => clearTimeout(timer);
+  // }, [popupType==="Run"]);
+
+
 
   return (
     <Container>
       <Wrapper>
-        <ButtonAdd onClick={() => setPopupType("Add")}>Add</ButtonAdd>
-        {popupType === "Add" && (
+        <ButtonAdd onClick={() => setPopupAddType((!popupAddType))}>Add</ButtonAdd>
+        {popupAddType && (
           <Popup
             color="#00C853"
-            closePopup={setPopupType}
+            closePopup={setPopupAddType}
             text="Test cases added successfully!"
           ></Popup>
         )}
-        <ButtonRemove onClick={() => setPopupType("Remove")}>
+        <ButtonRemove onClick={() => setPopupRemoveType(true)}>
           Remove
         </ButtonRemove>
-        {popupType === "Remove" && (
+        {popupRemoveType  && (
           <Popup
             color="#B71C1C"
-            closePopup={setPopupType}
+            closePopup={setPopupRemoveType}
             text="Test cases removed successfully!"
           ></Popup>
         )}
-        <ButtonRun onClick={() => setPopupType("Run")}>Run</ButtonRun>
-        {popupType === "Run" &&
-        
-          
-
-              <Popup
-                color="#B71C1C"
-                closePopup={setPopupType}
-                text="Validating Test Cases!"
-              ></Popup> 
-            
-             
-            
-          }
+        <ButtonRun>Run</ButtonRun>
+        {/* {popupType === "Run" &&
+          } */}
       </Wrapper>
     </Container>
   );

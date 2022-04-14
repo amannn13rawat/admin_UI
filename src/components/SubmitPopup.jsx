@@ -6,8 +6,8 @@ const Container = styled.div`
   height: 100vh; */
   background-color: #0d47a1;
   position: absolute;
-  bottom: 230px;
-  left: 440px;
+  bottom:300px;
+  left: 530px;
   width: 480px;
   z-index: 100 !important;
   border-radius: 5px;
