@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 testing
+=======
+button was failing with styled component.
+
+>>>>>>> 64fec3ded1f0950baf1ca7108194071278ba06f3

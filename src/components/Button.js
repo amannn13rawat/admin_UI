@@ -1,10 +1,13 @@
-import React from "react";
+import { pink } from "@mui/material/colors";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Popup from "./Popup";
 
 const Container = styled.div`
-  flex: 2;
+  flex: 1;
   /* background-color: green; */
-  position:relative;
+  position: relative;
+
   /* height: 100%; */
 `;
 
@@ -15,7 +18,6 @@ const Wrapper = styled.div`
   padding: 5px 5px;
 `;
 
-
 const ButtonAdd = styled.button`
   margin: 0;
   position: absolute;
@@ -25,20 +27,23 @@ const ButtonAdd = styled.button`
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
-
-  ${'' /* cursor: pointer;
+  ${
+    "" /* cursor: pointer;
   border: none;
   padding: 5px;
   margin: 0;
-  border-radius: 10px; */}
+  border-radius: 10px; */
+  }
   background-color: #00C853;
   /* margin : 10px 20px; */
+  width: 130px;
   border: none;
   border-radius: 5px;
-  padding: 3px 30px;
+  padding: 5px 20px;
   display: flex;
   align-items: center;
-  font-size: 20px;
+  justify-content: center;
+  font-size: 15px;
   font-weight: 400;
   color: white;
   cursor: pointer;
@@ -47,20 +52,21 @@ const ButtonRemove = styled.button`
   margin: 0;
   position: absolute;
   ${"" /* top: 50px; */}
-  top:30%;
+  top:27%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
-
-  background-color:#B71c1c;
+  background-color: #b71c1c;
   /* margin : 10px 20px; */
+  width: 130px;
   border: none;
   border-radius: 5px;
-  padding: 3px 20px;
+  padding: 5px 20px;
   display: flex;
   align-items: center;
-  font-size: 20px;
+  justify-content: center;
+  font-size: 15px;
   font-weight: 400;
   color: white;
   cursor: pointer;
@@ -69,33 +75,82 @@ const ButtonRun = styled.button`
   margin: 0;
   position: absolute;
   ${"" /* top: 50px; */}
-  bottom:15%;
+  bottom:25%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
-
-
-  background-color: #00C853;
+  background-color: #00c853;
   /* margin : 10px 20px; */
+  width: 130px;
   border: none;
   border-radius: 5px;
-  padding: 3px 30px;
+  padding: 5px 30px;
   display: flex;
   align-items: center;
-  font-size: 20px;
+  justify-content: center;
+  font-size: 15px;
   font-weight: 400;
   color: white;
   cursor: pointer;
 `;
 
+// const runPopup = [
+//   {
+//     color: "pink",
+//     text: "runnning text",
+//   },
+//   {
+//     color: "yellow",
+//     text: "succesfully",
+//   },
+// ];
+
 function Button(props) {
+  const [popupAddType, setPopupAddType] = useState(false);
+  const [popupRemoveType, setPopupRemoveType] = useState(false);
+  // const [popupType, setPopupType] = useState("");
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     runPopup.map((run) => (
+  //       <Popup
+  //         color={run.color}
+  //         closePopup={setPopupType}
+  //         text={run.text}
+  //       ></Popup>
+  //     ));
+  //   }, 1000);
+
+  //   return () => clearTimeout(timer);
+  // }, [popupType==="Run"]);
+
+
+
   return (
     <Container>
       <Wrapper>
-        <ButtonAdd>{props.items[0].Add}</ButtonAdd>
-        <ButtonRemove>{props.items[0].Remove}</ButtonRemove>
-        <ButtonRun>{props.items[0].Run}</ButtonRun>
+        <ButtonAdd onClick={() => setPopupAddType((!popupAddType))}>Add</ButtonAdd>
+        {popupAddType && (
+          <Popup
+            color="#00C853"
+            closePopup={setPopupAddType}
+            text="Test cases added successfully!"
+          ></Popup>
+        )}
+        <ButtonRemove onClick={() => setPopupRemoveType(true)}>
+          Remove
+        </ButtonRemove>
+        {popupRemoveType  && (
+          <Popup
+            color="#B71C1C"
+            closePopup={setPopupRemoveType}
+            text="Test cases removed successfully!"
+          ></Popup>
+        )}
+        <ButtonRun>Run</ButtonRun>
+        {/* {popupType === "Run" &&
+          } */}
       </Wrapper>
     </Container>
   );

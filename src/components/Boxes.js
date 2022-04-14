@@ -4,18 +4,22 @@ import React from "react";
 
 const Container=styled.div`
  
-    /* background-color: yellow; */
-    /* height: 500px; */
-    flex :4;
+    /* background-color: yellow;  */
+     /* height: 500px; */
+    flex :5;
    
 `;
 
 const Wrapper=styled.div`
-    /* background-color: yellow; */
-    padding: 20px 50px;
+    /* background-color: green; */
+    /* padding: 20px 30px  ; */
+    padding-top: 5px;
+  padding-left: 30px;
+  padding-right: 50px;
+  /* padding-bottom: 20px; */
 `;
 
-const Content=styled.div`
+const Content=styled.textarea`
 
    border-radius: 10px;
    background: #C4C4C4;
@@ -23,15 +27,16 @@ const Content=styled.div`
    /* margin-top: 10px; */
    margin-bottom: 20px;
     height: 200px;
-   /* width: 550px;  */
+    width: 100%; 
+    border:none;
 `;
 
 function Boxes(){
     return(
         <Container>
             <Wrapper>
-                <Content>Add Test Cases</Content>
-                <Content>Dry Run</Content>
+                <Content input="text" placeholder="Add Test Cases here"></Content>
+                <Content input="text" placeholder="Dry Run Here"></Content>
             </Wrapper>
         </Container>
         

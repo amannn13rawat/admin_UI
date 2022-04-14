@@ -3,20 +3,22 @@ import styled from "styled-components";
 import Button from "./Button";
 import Boxes from "./Boxes";
 import Box2 from "./Box2";
-import BottomBtn from "./BottomBtn";
 
-const btns = [
-  {
-    Add: "Add",
-    Remove: "Remove",
-    Run: "Run",
-  },
-];
+
+// const btns = [
+//   {
+//     Add: "Add",
+//     Remove: "Remove",
+//     Run: "Run",
+//   },
+// ];
 
 const Container = styled.div`
-  /* background-color: green; */
+  /* background-color: yellow; */
   width: 100%;
   display: flex;
+  /* height: 100px; */
+
   
    /* align-items: center; */
   /* justify-content: center;
@@ -28,7 +30,7 @@ function MidBody() {
   return (
     <Container>
       <Boxes></Boxes>
-      <Button items={btns}></Button>
+      <Button ></Button>
       <Box2></Box2>
      
 

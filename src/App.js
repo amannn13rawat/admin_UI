@@ -4,11 +4,15 @@ import Navbar from "./components/Bars/Navbar";
 import ProblemStatement from "./components/ProblemStatement";
 import MidBody from "./components/MidBody";
 
+
+
+
 function App() {
   return (
     <div className="App">
+      
       <Navbar></Navbar>
-      {/* <p>Space between</p> */}
+      {/* <p>aman</p> */}
       <ProblemStatement></ProblemStatement>
       <MidBody></MidBody>
       <BottomBtn></BottomBtn>

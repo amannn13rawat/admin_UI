@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
-import PersonIcon from '@mui/icons-material/Person';
+// import PersonIcon from '@mui/icons-material/Person';
 
 const Container = styled.div`
     height: 50px;
@@ -26,24 +26,24 @@ const Left =styled.div`
     justify-content: space-between;
  `;
 
- const Image=styled.div`
- `;
+//  const Image=styled.div`
+//  `;
 
 function Navbar() {
   return (
     <Container> 
       <Wrapper>
         <Left >
-          <Image>
+          {/* <Image>
             <PersonIcon/>
-          </Image>
+          </Image> */}
           <p>Breakfast for Brains-Coding Challange!</p>
         </Left>
         <Right>
           <p>User</p>
-          <Image>
+          {/* <Image>
             <PersonIcon/>
-          </Image>
+          </Image> */}
         </Right>
       </Wrapper>
     </Container>
