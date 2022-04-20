@@ -5,6 +5,7 @@ import Popup from "./Popup";
 
 const Container = styled.div`
   flex: 1;
+  
   /* background-color: green; */
   position: relative;
 
@@ -111,53 +112,62 @@ const ButtonRun = styled.button`
 function Button(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
-  const [runBtn1, setRunBtn1] = useState(false);
-  const [runBtn2, setRunBtn2] = useState(false);
-  const [runBtn3, setRunBtn3] = useState(false);
+  // const [runBtn1, setRunBtn1] = useState(false);
+  // const [runBtn2, setRunBtn2] = useState(false);
+  // const [runBtn3, setRunBtn3] = useState(false);
 
   const addRef = useRef();
   const removeRef = useRef();
-  const runRef = useRef();
 
-  //Removing mousedown EVnt listener.
-  const handleCallback = (stateReplied, event) => {
+  //Removing mousedown EVnt
+  const handlePopup = (stateReplied, event) => {
     if (
       !addRef.current.contains(event.target) &&
-      !removeRef.current.contains(event.target) &&
-      !runRef.current.contains(event.target)
+      !removeRef.current.contains(event.target)
     ) {
       setPopupAddType(stateReplied);
       setPopupRemoveType(stateReplied);
-      setRunBtn1(stateReplied)
-      setRunBtn2(stateReplied)
-      setRunBtn3(stateReplied)
+      // setRunBtn1(stateReplied);
+      // setRunBtn2(stateReplied);
+      // setRunBtn3(stateReplied);
     }
   };
-  console.log(addRef);
+  // console.log(addRef);
 
   //map can be used to loop through an array
-  const runClickHandler = () => {
-    setRunBtn1(!runBtn1);
-    setTimeout(() => {
-      setRunBtn2(!runBtn2);
-    }, 1500);
-    setTimeout(() => {
-      setRunBtn3(!runBtn3);
-    }, 2500);
+  // const runClickHandler = () => {
+  //   setRunBtn1(true);
+  //   setTimeout(() => {
+  //     setRunBtn2(true);
+  //   }, 1500);
+  //   setTimeout(() => {
+  //     setRunBtn3(true);
+  //   }, 2500);
+  // };
+
+
+  const addHandler = () => {
+    setPopupAddType(!popupAddType);
+    props.onAddText(props.txt);
+    console.log(props.txt)
+   
+    
+    
   };
+  
+
 
   return (
     <Container>
       <Wrapper>
-        <ButtonAdd ref={addRef} onClick={() => setPopupAddType(!popupAddType)}>
+        <ButtonAdd ref={addRef} onClick={addHandler}>
           Add
         </ButtonAdd>
+
         {popupAddType && (
           <Popup
             color="#00C853"
-            // parentRef={addRef}
-            // closePopup={setPopupAddType}
-            parentCallback={handleCallback}
+            onCallPopup={handlePopup}
             text="Test cases added successfully!"
           ></Popup>
         )}
@@ -170,37 +180,20 @@ function Button(props) {
         {popupRemoveType && (
           <Popup
             color="#B71C1C"
-            parentCallback={handleCallback}
+            onCallPopup={handlePopup}
             text="Test cases removed successfully!"
           ></Popup>
         )}
-        <ButtonRun ref={runRef} onClick={() => runClickHandler()}>
-          Run
-        </ButtonRun>
-        {runBtn1 && (
-          <Popup
-            color="red"
-            parentCallback={handleCallback}
-          
-            text="1!"
-          ></Popup>
+        <ButtonRun>Run</ButtonRun>
+        {/* {runBtn1 && (
+          <Popup color="red"   onCallPopup={handlePopup} text="1!"></Popup>
         )}
         {runBtn2 && (
-          <Popup
-            color="yellow"
-            parentCallback={handleCallback}
-            
-            text="2!"
-          ></Popup>
+          <Popup color="yellow" onCallPopup={handlePopup} text="2!"></Popup>
         )}
         {runBtn3 && (
-          <Popup
-            color="green"
-            parentCallback={handleCallback}
-            
-            text="3!"
-          ></Popup>
-        )}
+          <Popup color="green" onCallPopup={handlePopup} text="3!"></Popup>
+        )} */}
       </Wrapper>
     </Container>
   );

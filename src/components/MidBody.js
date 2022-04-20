@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import Boxes from "./Boxes";
@@ -26,12 +26,38 @@ const Container = styled.div`
   /* padding: 20px 20px; */
 `;
 
+
+
 function MidBody() {
+
+const[text,setText]=useState()
+// const[addText,setAddText]=useState()
+const btnRef=useRef()
+  
+//from Boxes
+  function boxesHandler(textSend){
+    // console.log(textSend)
+    // // const text=textSend
+    setText(textSend)
+  }
+ 
+
+  //from Button
+  // function addTextHandler(addTextSend){
+  //   // console.log(addTextSend)
+  //   const AddText=btnRef.current.value
+  //   // setAddText(addTextSend)
+  //   console.log(AddText)
+  // }
+  
+  
+ 
+
   return (
     <Container>
-      <Boxes></Boxes>
-      <Button ></Button>
-      <Box2></Box2>
+      <Boxes onBoxes={boxesHandler}></Boxes>
+      <Button txt={text}  ref={btnRef}></Button>
+      <Box2 ></Box2>
      
 
     </Container>

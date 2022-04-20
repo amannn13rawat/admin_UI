@@ -49,7 +49,7 @@ const ButtonOkayContainer = styled.div`
   /* align-items: center; */
 `;
 
-const ButtonSubmit = styled.button`
+const ButtonSub = styled.button`
   width: 130px;
   border: none;
   border-radius: 5px;
@@ -88,7 +88,7 @@ const ButtonOkay = styled.button`
   background-color: #00c853;
 `;
 
-function SubmitPopup({ closedPopup }) {
+function SubmitPopup({ onClosedPopup }) {
   const [openPopup, setOpenPopup] = useState(false);
   let popupText = useRef();
 
@@ -99,7 +99,7 @@ function SubmitPopup({ closedPopup }) {
   useEffect(() => {
     let handler = (event) => {
       if (!popupText.current.contains(event.target)) {
-        closedPopup(false);
+        onClosedPopup(event);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -115,7 +115,7 @@ function SubmitPopup({ closedPopup }) {
         <Wrapper>
           <PopupText>Do You Want to Submit the problem Statement?</PopupText>
           <ButtonSubmitContainer>
-            <ButtonSubmit onClick={submitPopupHandler}>Submit</ButtonSubmit>
+            <ButtonSub onClick={submitPopupHandler}>Submit</ButtonSub>
             <ButtonCancel>Cancel</ButtonCancel>
           </ButtonSubmitContainer>
         </Wrapper>
@@ -126,7 +126,7 @@ function SubmitPopup({ closedPopup }) {
           <Wrapper>
             <PopupText>Successfully submitted the problem statement!</PopupText>
             <ButtonOkayContainer>
-              <ButtonOkay onClick={() => closedPopup(false)}>Okay!</ButtonOkay>
+              <ButtonOkay onClick={onClosedPopup}>Okay!</ButtonOkay>
             </ButtonOkayContainer>
           </Wrapper>
         </Container>

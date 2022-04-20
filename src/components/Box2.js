@@ -25,6 +25,7 @@ const Content = styled.textarea`
   border: none;
 `;
 function Box2() {
+  // console.log(addTxt)
   return (
     <Container>
       <Wrapper>

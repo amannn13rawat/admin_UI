@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import SubmitPopup from "./SubmitPopup";
 
@@ -55,6 +55,14 @@ const ButtonClear = styled.button`
 function BottomBtn() {
   
   const[showClickPopup,setShowClickPopup] = useState(false)
+  const submitRef=useRef()
+  //to removee mouseClickdown 
+  function closePopupHandler(event){
+    if(!submitRef.current.contains(event.target)){
+      setShowClickPopup(!showClickPopup);
+    }
+
+  }
   
   // function popupHandler(){
   //   setShowClickPopup(true)
@@ -63,8 +71,8 @@ function BottomBtn() {
   return (
     <Container>
       <Wrapper>
-        <ButtonSubmit onClick={() => setShowClickPopup((!showClickPopup) )}>Submit</ButtonSubmit>
-        {showClickPopup && <SubmitPopup closedPopup={setShowClickPopup} ></SubmitPopup>}
+        <ButtonSubmit ref={submitRef} onClick={() => setShowClickPopup((!showClickPopup) )}>Submit</ButtonSubmit>
+        {showClickPopup && <SubmitPopup onClosedPopup={closePopupHandler} ></SubmitPopup>}
         <ButtonClear>Clear</ButtonClear>
       </Wrapper>
     </Container>
