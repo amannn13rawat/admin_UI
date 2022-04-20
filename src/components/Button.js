@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Popup from "./Popup";
 
-const Container = styled.div`
+const ContainerButton = styled.div`
   flex: 1;
   
   /* background-color: green; */
@@ -12,7 +12,7 @@ const Container = styled.div`
   /* height: 100%; */
 `;
 
-const Wrapper = styled.div`
+const WrapperButton = styled.div`
   /* position: relative; */
   /* background-color: blue; */
 
@@ -158,8 +158,8 @@ function Button(props) {
 
 
   return (
-    <Container>
-      <Wrapper>
+    <ContainerButton>
+      <WrapperButton>
         <ButtonAdd ref={addRef} onClick={addHandler}>
           Add
         </ButtonAdd>
@@ -194,8 +194,8 @@ function Button(props) {
         {runBtn3 && (
           <Popup color="green" onCallPopup={handlePopup} text="3!"></Popup>
         )} */}
-      </Wrapper>
-    </Container>
+      </WrapperButton>
+    </ContainerButton>
   );
 }
 export default Button;

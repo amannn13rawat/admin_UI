@@ -1,66 +1,223 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import Popup from "./Popup";
 import Button from "./Button";
 import Boxes from "./Boxes";
 import Box2 from "./Box2";
 
-
-// const btns = [
-//   {
-//     Add: "Add",
-//     Remove: "Remove",
-//     Run: "Run",
-//   },
-// ];
-
-const Container = styled.div`
+//Midbody css
+const ContainerMid = styled.div`
   /* background-color: yellow; */
   width: 100%;
   display: flex;
-  /* height: 100px; */
-
-  
-   /* align-items: center; */
-  /* justify-content: center;
-  flex-wrap: wrap;  */
-  /* padding: 20px 20px; */
 `;
 
+//BOXES CSS
+const ContainerBoxes = styled.div`
+  flex: 5;
+`;
 
+const WrapperBoxes = styled.div`
+  padding-top: 5px;
+  padding-left: 30px;
+  padding-right: 50px;
+`;
+
+const ContentBoxes = styled.textarea`
+  border-radius: 10px;
+  background: #c4c4c4;
+  padding: 10px;
+  margin-bottom: 20px;
+  height: 200px;
+  width: 100%;
+  border: none;
+`;
+
+//BUTTON CSS
+const ContainerButton = styled.div`
+  flex: 1;
+  position: relative;
+`;
+
+const WrapperButton = styled.div`
+  padding: 5px 5px;
+`;
+
+const ButtonAdd = styled.button`
+  margin: 0;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  background-color: #00c853;
+  width: 130px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 400;
+  color: white;
+  cursor: pointer;
+`;
+const ButtonRemove = styled.button`
+  margin: 0;
+  position: absolute;
+  top: 27%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  background-color: #b71c1c;
+  width: 130px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 400;
+  color: white;
+  cursor: pointer;
+`;
+const ButtonRun = styled.button`
+  margin: 0;
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  background-color: #00c853;
+  width: 130px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 400;
+  color: white;
+  cursor: pointer;
+`;
+
+//BOX2 CSS
+const ContainerBox2 = styled.div`
+  flex: 5;
+`;
+
+const WrapperBox2 = styled.div`
+  padding-top: 5px;
+  padding-left: 30px;
+  padding-right: 50px;
+`;
+
+const ContentBox2 = styled.div`
+  border-radius: 10px;
+  background: #c4c4c4;
+  padding: 10px;
+  height: 442px;
+  width: 100%;
+  border: none;
+`;
 
 function MidBody() {
+  const [popupAddType, setPopupAddType] = useState(false);
+  const [popupRemoveType, setPopupRemoveType] = useState(false);
 
-const[text,setText]=useState()
-// const[addText,setAddText]=useState()
-const btnRef=useRef()
-  
-//from Boxes
-  function boxesHandler(textSend){
-    // console.log(textSend)
-    // // const text=textSend
-    setText(textSend)
-  }
+  // const [enteredTestCases, setEnteredTestCases] = useState();
+  const [showTestCases, setSHowTestCases] = useState([]);
+  const enteredTestCases=useRef()
  
 
-  //from Button
-  // function addTextHandler(addTextSend){
-  //   // console.log(addTextSend)
-  //   const AddText=btnRef.current.value
-  //   // setAddText(addTextSend)
-  //   console.log(AddText)
-  // }
-  
-  
- 
+  const addRef = useRef();
+  const removeRef = useRef();
 
+  //Removing mousedown EVent
+  const handlePopup = (stateReplied, event) => {
+    if (
+      !addRef.current.contains(event.target) &&
+      !removeRef.current.contains(event.target)
+    ) {
+      setPopupAddType(stateReplied);
+      setPopupRemoveType(stateReplied);
+    }
+  };
+  // console.log(addRef);
+
+  const addHandler = () => {
+    setPopupAddType(!popupAddType);
+    setSHowTestCases((showTestCases)=>(showTestCases).push(enteredTestCases.current.value))
+    enteredTestCases.current.value=''
+   
+    console.log(showTestCases)
+  };
+
+  // function testCasesHandler(event) {
+  //   setEnteredTestCases(event.target.value);
+  
+  // console.log(enteredTestCases);
+  console.log()
   return (
-    <Container>
-      <Boxes onBoxes={boxesHandler}></Boxes>
-      <Button txt={text}  ref={btnRef}></Button>
-      <Box2 ></Box2>
-     
+    <ContainerMid>
+      <ContainerBoxes>
+        <WrapperBoxes>
+          <ContentBoxes
+            input="text"
+            placeholder="Add Test Cases here"
+            // onChange={testCasesHandler}
+            ref={enteredTestCases}
+          ></ContentBoxes>
+          <ContentBoxes input="text" placeholder="Dry Run Here"></ContentBoxes>
+        </WrapperBoxes>
+      </ContainerBoxes>
+      {/* <Boxes onBoxes={boxesHandler}></Boxes> */}
 
-    </Container>
+      <ContainerButton>
+        <WrapperButton>
+          <ButtonAdd ref={addRef} onClick={addHandler}>
+            Add
+          </ButtonAdd>
+
+          {popupAddType && (
+            <Popup
+              color="#00C853"
+              onCallPopup={handlePopup}
+              text="Test cases added successfully!"
+            ></Popup>
+          )}
+          <ButtonRemove
+            ref={removeRef}
+            onClick={() => setPopupRemoveType(!popupRemoveType)}
+          >
+            Remove
+          </ButtonRemove>
+          {popupRemoveType && (
+            <Popup
+              color="#B71C1C"
+              onCallPopup={handlePopup}
+              text="Test cases removed successfully!"
+            ></Popup>
+          )}
+          <ButtonRun>Run</ButtonRun>
+        </WrapperButton>
+      </ContainerButton>
+      {/* <Button></Button> */}
+
+      <ContainerBox2>
+        <WrapperBox2>
+          <ContentBox2 input="text" placeholder="Add Test Cases">{showTestCases}</ContentBox2>
+        </WrapperBox2>
+      </ContainerBox2>
+      {/* <Box2 txt={showTestCases}></Box2> */}
+    </ContainerMid>
   );
 }
+
 export default MidBody;

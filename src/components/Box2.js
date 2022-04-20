@@ -1,21 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
+const ContainerBox2 = styled.div`
   flex: 5;
   /* background-color: violet; */
   /* width: 100%; */
   /* height: 500px; */
 `;
 
-const Wrapper = styled.div`
+const WrapperBox2 = styled.div`
   padding-top: 5px;
   padding-left: 30px;
 
   padding-right: 50px;
 `;
 
-const Content = styled.textarea`
+const ContentBox2 = styled.textarea`
   border-radius: 10px;
   background: #c4c4c4;
   padding: 10px;
@@ -24,14 +24,14 @@ const Content = styled.textarea`
   width: 100%;
   border: none;
 `;
-function Box2() {
+function Box2({txt}) {
   // console.log(addTxt)
   return (
-    <Container>
-      <Wrapper>
-        <Content input="text" placeholder="Add Test Cases"></Content>
-      </Wrapper>
-    </Container>
+    <ContainerBox2>
+      <WrapperBox2>
+        <ContentBox2 input="text" placeholder="Add Test Cases">{txt}</ContentBox2>
+      </WrapperBox2>
+    </ContainerBox2>
   );
 }
 
