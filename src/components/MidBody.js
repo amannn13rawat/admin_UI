@@ -127,25 +127,26 @@ const ContentBox2 = styled.div`
   border: none;
 `;
 
+const testCases = [""];
 function MidBody() {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
-
+  const [leftTestcases, setLeftTestcases] = useState("");
   // const [enteredTestCases, setEnteredTestCases] = useState();
   const [showTestCases, setSHowTestCases] = useState([]);
-  const enteredTestCases=useRef()
- 
+  const enteredTestCases = useRef();
 
   const addRef = useRef();
   const removeRef = useRef();
 
   //Removing mousedown EVent
-  const handlePopup = (stateReplied, event) => {
-    if (
-      !addRef.current.contains(event.target) &&
-      !removeRef.current.contains(event.target)
-    ) {
+  const handlePopupAdd = (stateReplied, event) => {
+    if (!addRef.current.contains(event.target)) {
       setPopupAddType(stateReplied);
+    }
+  };
+  const handlePopupRemove = (stateReplied, event) => {
+    if (!removeRef.current.contains(event.target)) {
       setPopupRemoveType(stateReplied);
     }
   };
@@ -153,17 +154,21 @@ function MidBody() {
 
   const addHandler = () => {
     setPopupAddType(!popupAddType);
-    setSHowTestCases((showTestCases)=>(showTestCases).push(enteredTestCases.current.value))
-    enteredTestCases.current.value=''
-   
-    console.log(showTestCases)
+    // testCases.push(leftTestcases);
+    setLeftTestcases("");
+    console.log(testCases);
+
+    // setSHowTestCases(...showTestCases, enteredTestCases.current.value);
+    // enteredTestCases.current.value=''
+
+    // console.log(showTestCases)
   };
 
   // function testCasesHandler(event) {
   //   setEnteredTestCases(event.target.value);
-  
+
   // console.log(enteredTestCases);
-  console.log()
+  console.log();
   return (
     <ContainerMid>
       <ContainerBoxes>
@@ -172,7 +177,11 @@ function MidBody() {
             input="text"
             placeholder="Add Test Cases here"
             // onChange={testCasesHandler}
-            ref={enteredTestCases}
+            // ref={enteredTestCases}
+            value={leftTestcases}
+            onChange={(event) => {
+              setLeftTestcases(event.target.value);
+            }}
           ></ContentBoxes>
           <ContentBoxes input="text" placeholder="Dry Run Here"></ContentBoxes>
         </WrapperBoxes>
@@ -188,7 +197,7 @@ function MidBody() {
           {popupAddType && (
             <Popup
               color="#00C853"
-              onCallPopup={handlePopup}
+              onCallPopup={handlePopupAdd}
               text="Test cases added successfully!"
             ></Popup>
           )}
@@ -201,7 +210,7 @@ function MidBody() {
           {popupRemoveType && (
             <Popup
               color="#B71C1C"
-              onCallPopup={handlePopup}
+              onCallPopup={handlePopupRemove}
               text="Test cases removed successfully!"
             ></Popup>
           )}
@@ -212,7 +221,11 @@ function MidBody() {
 
       <ContainerBox2>
         <WrapperBox2>
-          <ContentBox2 input="text" placeholder="Add Test Cases">{showTestCases}</ContentBox2>
+          {/* <ContentBox2 input="text" placeholder="Add Test Cases">{testCases[0]}</ContentBox2> */}
+
+          {testCases.map((testCase) => (
+            <ContentBox2>{testCase}</ContentBox2>
+          ))}
         </WrapperBox2>
       </ContainerBox2>
       {/* <Box2 txt={showTestCases}></Box2> */}
