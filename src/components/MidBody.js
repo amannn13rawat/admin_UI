@@ -197,7 +197,7 @@ function MidBody() {
               text="Test cases added successfully!"
             ></Popup>
           )}
-          <ButtonRemove ref={removeRef} onClick={removeHandler()}>
+          <ButtonRemove ref={removeRef} onClick={removeHandler}>
             Remove
           </ButtonRemove>
           {popupRemoveType && (
@@ -219,7 +219,7 @@ function MidBody() {
                 id={test.id}
                 testCase={test.testCase}
                 points={test.points}
-                onDelete={removeHandler}
+                // onDelete={removeHandler}
               />
             ))}
           </ContentBox2>
