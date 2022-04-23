@@ -17,13 +17,13 @@ const Wrapper =styled.div`
 const Left =styled.div`
     align-items: center;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
  `;
 
  const Right =styled.div`
     align-items: center;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
  `;
 
 //  const Image=styled.div`

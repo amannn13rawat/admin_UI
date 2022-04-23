@@ -1,4 +1,4 @@
-import { keyframes } from "@emotion/react";
+
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 // import './AddPopup.css'
@@ -16,10 +16,7 @@ const PopupContainer = styled.div`
   box-shadow: 2px 3px 5px #999;
 `;
 
-const drop = keyframes`
-    0%  {transform:translateY(-1000px);}
-  100% { transform:translateY(0)}
- `;
+
 
 const PopupText = styled.div`
   text-align: center;
@@ -31,7 +28,7 @@ const PopupText = styled.div`
 
 function Popup({ color, text, onCallPopup,}) {
   let popupText = useRef();
-
+  console.log(popupText)
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
       // !parentRef.current.contains(event.target)

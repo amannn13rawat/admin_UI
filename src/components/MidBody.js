@@ -1,9 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Popup from "./Popup";
-import Button from "./Button";
-import Boxes from "./Boxes";
-import Box2 from "./Box2";
+import TestCasesList from "./TestCasesList";
 
 //Midbody css
 const ContainerMid = styled.div`
@@ -28,7 +26,7 @@ const ContentBoxes = styled.textarea`
   background: #c4c4c4;
   padding: 10px;
   margin-bottom: 20px;
-  height: 200px;
+  height: 442px;
   width: 100%;
   border: none;
 `;
@@ -46,7 +44,7 @@ const WrapperButton = styled.div`
 const ButtonAdd = styled.button`
   margin: 0;
   position: absolute;
-  top: 20%;
+  top: 40%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -67,7 +65,7 @@ const ButtonAdd = styled.button`
 const ButtonRemove = styled.button`
   margin: 0;
   position: absolute;
-  top: 27%;
+  top: 48%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -77,27 +75,6 @@ const ButtonRemove = styled.button`
   border: none;
   border-radius: 5px;
   padding: 5px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  font-weight: 400;
-  color: white;
-  cursor: pointer;
-`;
-const ButtonRun = styled.button`
-  margin: 0;
-  position: absolute;
-  bottom: 25%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-
-  background-color: #00c853;
-  width: 130px;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,20 +98,21 @@ const WrapperBox2 = styled.div`
 const ContentBox2 = styled.div`
   border-radius: 10px;
   background: #c4c4c4;
-  padding: 10px;
+  padding: 10px 20px;
   height: 442px;
   width: 100%;
   border: none;
 `;
 
-const testCases = [""];
+const testCases = [
+  { testCase: "TestCases", id: "g1", points: "Weightage" },
+  // { testCase: "TestCase2", id: "g2", points: "8" },
+];
 function MidBody() {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
-  const [leftTestcases, setLeftTestcases] = useState("");
-  // const [enteredTestCases, setEnteredTestCases] = useState();
-  const [showTestCases, setSHowTestCases] = useState([]);
-  const enteredTestCases = useRef();
+  const [enteredTestcases, setEnteredTestcases] = useState("");
+  const [addedTestCases, setAddedTestCases] = useState(testCases);
 
   const addRef = useRef();
   const removeRef = useRef();
@@ -152,23 +130,45 @@ function MidBody() {
   };
   // console.log(addRef);
 
-  const addHandler = () => {
+  function addHandler() {
     setPopupAddType(!popupAddType);
-    // testCases.push(leftTestcases);
-    setLeftTestcases("");
-    console.log(testCases);
+    // console.log(leftUpdated)
 
-    // setSHowTestCases(...showTestCases, enteredTestCases.current.value);
-    // enteredTestCases.current.value=''
+    setAddedTestCases((prevTest) => {
+      // console.log(prevTest);
+      return [...prevTest, testCasesArray];
+    });
 
-    // console.log(showTestCases)
+    setEnteredTestcases("");
+  }
+
+  function removeHandler() {
+    setPopupRemoveType(!popupRemoveType);
+    const [deletedItem, ...item] = addedTestCases;
+    setAddedTestCases((addedTestCases) => {
+      const temp = addedTestCases.pop();
+      const tempArray=addedTestCases.filter((e)=>e!==temp)
+      return tempArray
+    });
+    
+  }
+
+  const max = 10;
+  const min = 1;
+  const random = Math.floor(Math.random() * (max - min) + min);
+
+  const testCasesArray = {
+    testCase: enteredTestcases,
+    id: Math.random().toString(),
+    points: random.toString(),
   };
+  console.log(testCasesArray);
 
-  // function testCasesHandler(event) {
-  //   setEnteredTestCases(event.target.value);
+  function testCasesHandler(event) {
+    setEnteredTestcases(event.target.value);
+    // console.log(leftTestcases);
+  }
 
-  // console.log(enteredTestCases);
-  console.log();
   return (
     <ContainerMid>
       <ContainerBoxes>
@@ -178,15 +178,11 @@ function MidBody() {
             placeholder="Add Test Cases here"
             // onChange={testCasesHandler}
             // ref={enteredTestCases}
-            value={leftTestcases}
-            onChange={(event) => {
-              setLeftTestcases(event.target.value);
-            }}
+            value={enteredTestcases}
+            onChange={testCasesHandler}
           ></ContentBoxes>
-          <ContentBoxes input="text" placeholder="Dry Run Here"></ContentBoxes>
         </WrapperBoxes>
       </ContainerBoxes>
-      {/* <Boxes onBoxes={boxesHandler}></Boxes> */}
 
       <ContainerButton>
         <WrapperButton>
@@ -201,10 +197,7 @@ function MidBody() {
               text="Test cases added successfully!"
             ></Popup>
           )}
-          <ButtonRemove
-            ref={removeRef}
-            onClick={() => setPopupRemoveType(!popupRemoveType)}
-          >
+          <ButtonRemove ref={removeRef} onClick={removeHandler()}>
             Remove
           </ButtonRemove>
           {popupRemoveType && (
@@ -214,21 +207,24 @@ function MidBody() {
               text="Test cases removed successfully!"
             ></Popup>
           )}
-          <ButtonRun>Run</ButtonRun>
         </WrapperButton>
       </ContainerButton>
-      {/* <Button></Button> */}
 
       <ContainerBox2>
         <WrapperBox2>
-          {/* <ContentBox2 input="text" placeholder="Add Test Cases">{testCases[0]}</ContentBox2> */}
-
-          {testCases.map((testCase) => (
-            <ContentBox2>{testCase}</ContentBox2>
-          ))}
+          <ContentBox2>
+            {addedTestCases.map((test) => (
+              <TestCasesList
+                key={test.id}
+                id={test.id}
+                testCase={test.testCase}
+                points={test.points}
+                onDelete={removeHandler}
+              />
+            ))}
+          </ContentBox2>
         </WrapperBox2>
       </ContainerBox2>
-      {/* <Box2 txt={showTestCases}></Box2> */}
     </ContainerMid>
   );
 }
