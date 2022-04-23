@@ -147,7 +147,7 @@ function MidBody() {
     const [deletedItem, ...item] = addedTestCases;
     setAddedTestCases((addedTestCases) => {
       const temp = addedTestCases.pop();
-      const tempArray=addedTestCases.filter((e)=>e!==temp)
+      const tempArray=addedTestCases.filter((e)=>e.id!==temp.id);
       return tempArray
     });
     
@@ -158,9 +158,9 @@ function MidBody() {
   const random = Math.floor(Math.random() * (max - min) + min);
 
   const testCasesArray = {
-    testCase: enteredTestcases,
+    testCase: enteredTestcases.split(",")[0],
     id: Math.random().toString(),
-    points: random.toString(),
+    points: enteredTestcases.split(",")[1],
   };
   console.log(testCasesArray);
 
