@@ -2,51 +2,39 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  /* width: 100vw;
-  height: 100vh; */
   background-color: #0d47a1;
   position: absolute;
-  bottom:300px;
+  bottom: 300px;
   left: 530px;
   width: 480px;
   z-index: 100 !important;
   border-radius: 5px;
   height: 85px;
   color: #ffffff;
-  /* display: flex; */
-  /* justify-content: space-around;
-   align-items: center; */
 `;
 
 const Wrapper = styled.div`
   padding: 15px 60px;
   text-align: center;
   justify-content: center;
-  /* align-items: center; */
 `;
 
 const PopupText = styled.div`
   font-size: 15px;
   text-align: center;
-  /* padding: 5px 10px; */
 `;
 
 const ButtonSubmitContainer = styled.div`
   padding: 10px 30px;
   display: flex;
-  /* background-color: pink; */
-
-  /* align-items: center; */
 `;
 
 const ButtonOkayContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: pink; */
-  margin-top: 15px;
 
-  /* align-items: center; */
+  margin-top: 15px;
 `;
 
 const ButtonSub = styled.button`
@@ -54,7 +42,7 @@ const ButtonSub = styled.button`
   border: none;
   border-radius: 5px;
   padding: 5px 30px;
-  /* display: flex; */
+
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -67,7 +55,7 @@ const ButtonCancel = styled.button`
   border: none;
   border-radius: 5px;
   padding: 5px 30px;
-  /* display: flex; */
+
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -80,7 +68,7 @@ const ButtonOkay = styled.button`
   border: none;
   border-radius: 5px;
   padding: 5px 30px;
-  /* display: flex; */
+
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -96,6 +84,7 @@ function SubmitPopup({ onClosedPopup }) {
     setOpenPopup(!openPopup);
   }
 
+  //Remove Popup by clicking outside in th screen
   useEffect(() => {
     let handler = (event) => {
       if (!popupText.current.contains(event.target)) {

@@ -3,10 +3,9 @@ import styled from "styled-components";
 import SubmitPopup from "./SubmitPopup";
 
 const Container = styled.div`
-  /* background-color: orange;
-  /* display:flex; */
+
   flex:1; 
-  height: 40px;
+  height: 42px;
 
   
   
@@ -21,7 +20,7 @@ const Wrapper = styled.div`
 const ButtonSubmit = styled.button`
   margin-right: 10px ;
   background-color: #00C853;
-  /* margin : 10px 20px; */
+  
   width: 130px;
   border: none;
   border-radius: 5px;
@@ -36,9 +35,9 @@ const ButtonSubmit = styled.button`
 `;
 
 const ButtonClear = styled.button`
-  /* margin-right: 10px; */
+
   background-color:#B71c1c;
-  /* margin : 10px 20px; */
+  
   width: 130px;
   border: none;
   border-radius: 5px;
@@ -56,7 +55,8 @@ function BottomBtn() {
   
   const[showClickPopup,setShowClickPopup] = useState(false)
   const submitRef=useRef()
-  //to removee mouseClickdown 
+  
+  //to removee mouseClickdown event
   function closePopupHandler(event){
     if(!submitRef.current.contains(event.target)){
       setShowClickPopup(!showClickPopup);
@@ -64,10 +64,6 @@ function BottomBtn() {
 
   }
   
-  // function popupHandler(){
-  //   setShowClickPopup(true)
-  // }
-  console.log(showClickPopup);
   return (
     <Container>
       <Wrapper>

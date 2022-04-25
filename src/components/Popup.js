@@ -1,7 +1,6 @@
-
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
-// import './AddPopup.css'
+
 
 const PopupContainer = styled.div`
   top: 57px;
@@ -16,8 +15,6 @@ const PopupContainer = styled.div`
   box-shadow: 2px 3px 5px #999;
 `;
 
-
-
 const PopupText = styled.div`
   text-align: center;
   justify-content: center;
@@ -26,19 +23,13 @@ const PopupText = styled.div`
   font-size: 13px;
 `;
 
-function Popup({ color, text, onCallPopup,}) {
+function Popup({ color, text, onCallPopup }) {
   let popupText = useRef();
-  console.log(popupText)
+
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
-      // !parentRef.current.contains(event.target)
       if (!popupText.current.contains(event.target)) {
-        // console.log(event.target);
-        // console.log(popupText.current)
-        // // closePopup(false);
-        onCallPopup(false,event);
-        
-        
+        onCallPopup(false, event);
       }
     });
   });

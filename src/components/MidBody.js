@@ -5,7 +5,7 @@ import TestCasesList from "./TestCasesList";
 
 //Midbody css
 const ContainerMid = styled.div`
-  /* background-color: yellow; */
+  
   width: 100%;
   display: flex;
 `;
@@ -92,7 +92,7 @@ const ContainerBox2 = styled.div`
 const WrapperBox2 = styled.div`
   padding-top: 5px;
   padding-left: 30px;
-  padding-right: 50px;
+  padding-right: 70px;
 `;
 
 const ContentBox2 = styled.div`
@@ -104,18 +104,45 @@ const ContentBox2 = styled.div`
   border: none;
 `;
 
-const testCases = [
+const dummyTestCases = [
   { testCase: "TestCases", id: "g1", points: "Weightage" },
-  // { testCase: "TestCase2", id: "g2", points: "8" },
 ];
 function MidBody() {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
   const [enteredTestcases, setEnteredTestcases] = useState("");
-  const [addedTestCases, setAddedTestCases] = useState(testCases);
+  const [addedTestCases, setAddedTestCases] = useState(dummyTestCases);
 
   const addRef = useRef();
   const removeRef = useRef();
+
+  const testCasesArray = {
+    testCase: enteredTestcases.split(",")[0],
+    id: Math.random().toString(),
+    points: enteredTestcases.split(",")[1],
+  };
+
+  function addHandler() {
+    setPopupAddType(!popupAddType);
+
+    //Putting aaray in addedTestCases
+    setAddedTestCases((prevTest) => {
+      return [...prevTest, testCasesArray];
+    });
+    setEnteredTestcases("");
+  }
+
+
+  function removeHandler() {
+    setPopupRemoveType(!popupRemoveType);
+
+    //Deleting the testCases from addedTestCases 
+    setAddedTestCases((addedTestCases) => {
+      const temp = addedTestCases.pop();
+      const tempDeletedArray = addedTestCases.filter((e) => e.id !== temp.id);
+      return tempDeletedArray;
+    });
+  }
 
   //Removing mousedown EVent
   const handlePopupAdd = (stateReplied, event) => {
@@ -128,46 +155,7 @@ function MidBody() {
       setPopupRemoveType(stateReplied);
     }
   };
-  // console.log(addRef);
-
-  function addHandler() {
-    setPopupAddType(!popupAddType);
-    // console.log(leftUpdated)
-
-    setAddedTestCases((prevTest) => {
-      // console.log(prevTest);
-      return [...prevTest, testCasesArray];
-    });
-
-    setEnteredTestcases("");
-  }
-
-  function removeHandler() {
-    setPopupRemoveType(!popupRemoveType);
-    const [deletedItem, ...item] = addedTestCases;
-    setAddedTestCases((addedTestCases) => {
-      const temp = addedTestCases.pop();
-      const tempArray=addedTestCases.filter((e)=>e.id!==temp.id);
-      return tempArray
-    });
-    
-  }
-
-  const max = 10;
-  const min = 1;
-  const random = Math.floor(Math.random() * (max - min) + min);
-
-  const testCasesArray = {
-    testCase: enteredTestcases.split(",")[0],
-    id: Math.random().toString(),
-    points: enteredTestcases.split(",")[1],
-  };
-  console.log(testCasesArray);
-
-  function testCasesHandler(event) {
-    setEnteredTestcases(event.target.value);
-    // console.log(leftTestcases);
-  }
+  
 
   return (
     <ContainerMid>
@@ -176,10 +164,8 @@ function MidBody() {
           <ContentBoxes
             input="text"
             placeholder="Add Test Cases here"
-            // onChange={testCasesHandler}
-            // ref={enteredTestCases}
             value={enteredTestcases}
-            onChange={testCasesHandler}
+            onChange={(event) => setEnteredTestcases(event.target.value)}
           ></ContentBoxes>
         </WrapperBoxes>
       </ContainerBoxes>
@@ -219,7 +205,6 @@ function MidBody() {
                 id={test.id}
                 testCase={test.testCase}
                 points={test.points}
-                // onDelete={removeHandler}
               />
             ))}
           </ContentBox2>
