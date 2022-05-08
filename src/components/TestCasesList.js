@@ -25,7 +25,8 @@ const LI = styled.div`
 function TestCasesList(props) {
   return (
     <UL>
-      <LI>{props.testCase}</LI>
+      <LI>{props.input}</LI>
+      <LI>{props.output}</LI>
       <LI>{props.points}</LI>
     </UL>
   );

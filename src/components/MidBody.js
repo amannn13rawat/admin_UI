@@ -2,10 +2,10 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Popup from "./Popup";
 import TestCasesList from "./TestCasesList";
+import DateSet from "./DateSet";
 
 //Midbody css
 const ContainerMid = styled.div`
-  
   width: 100%;
   display: flex;
 `;
@@ -25,8 +25,8 @@ const ContentBoxes = styled.textarea`
   border-radius: 10px;
   background: #c4c4c4;
   padding: 10px;
-  margin-bottom: 20px;
-  height: 442px;
+  margin-bottom: 2px;
+  height: 130px;
   width: 100%;
   border: none;
 `;
@@ -99,28 +99,39 @@ const ContentBox2 = styled.div`
   border-radius: 10px;
   background: #c4c4c4;
   padding: 10px 20px;
-  height: 442px;
+  height: 221px;
   width: 100%;
   border: none;
+  overflow-y: scroll;
+  margin-bottom: 2px;
 `;
 
+
+
 const dummyTestCases = [
-  { testCase: "TestCases", id: "g1", points: "Weightage" },
+  { input: "Input", output: "Output", id: "g1", points: "Weightage" },
 ];
 function MidBody() {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
-  const [enteredTestcases, setEnteredTestcases] = useState("");
+  const [enteredInput, setEnteredInput] = useState("");
+  const [enteredOutput, setEnteredOutput] = useState("");
+  const [enteredWeightage, setEnteredWeightage] = useState("");
   const [addedTestCases, setAddedTestCases] = useState(dummyTestCases);
 
   const addRef = useRef();
   const removeRef = useRef();
 
+  console.log(typeof(enteredWeightage))
+  console.log(typeof(points))
   const testCasesArray = {
-    testCase: enteredTestcases.split(",")[0],
+    input: enteredInput,
     id: Math.random().toString(),
-    points: enteredTestcases.split(",")[1],
+    output: enteredOutput,
+    points: Math.floor(enteredWeightage),
+    
   };
+ 
 
   function addHandler() {
     setPopupAddType(!popupAddType);
@@ -129,14 +140,15 @@ function MidBody() {
     setAddedTestCases((prevTest) => {
       return [...prevTest, testCasesArray];
     });
-    setEnteredTestcases("");
+    setEnteredInput("");
+    setEnteredOutput("");
+    setEnteredWeightage("");
   }
-
 
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
 
-    //Deleting the testCases from addedTestCases 
+    //Deleting the testCases from addedTestCases
     setAddedTestCases((addedTestCases) => {
       const temp = addedTestCases.pop();
       const tempDeletedArray = addedTestCases.filter((e) => e.id !== temp.id);
@@ -155,7 +167,6 @@ function MidBody() {
       setPopupRemoveType(stateReplied);
     }
   };
-  
 
   return (
     <ContainerMid>
@@ -163,9 +174,21 @@ function MidBody() {
         <WrapperBoxes>
           <ContentBoxes
             input="text"
-            placeholder="Add Test Cases here"
-            value={enteredTestcases}
-            onChange={(event) => setEnteredTestcases(event.target.value)}
+            placeholder="TestCases Input"
+            value={enteredInput}
+            onChange={(event) => setEnteredInput(event.target.value)}
+          ></ContentBoxes>
+          <ContentBoxes
+            input="text"
+            placeholder="Expected Output"
+            value={enteredOutput}
+            onChange={(event) => setEnteredOutput(event.target.value)}
+          ></ContentBoxes>
+          <ContentBoxes
+            input="text"
+            placeholder="Weightage"
+            value={enteredWeightage}
+            onChange={(event) => setEnteredWeightage(event.target.value)}
           ></ContentBoxes>
         </WrapperBoxes>
       </ContainerBoxes>
@@ -203,11 +226,13 @@ function MidBody() {
               <TestCasesList
                 key={test.id}
                 id={test.id}
-                testCase={test.testCase}
+                input={test.input}
+                output={test.output}
                 points={test.points}
               />
             ))}
           </ContentBox2>
+          <DateSet></DateSet>
         </WrapperBox2>
       </ContainerBox2>
     </ContainerMid>
