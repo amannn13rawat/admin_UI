@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -22,13 +22,30 @@ const ProblemBox = styled.textarea`
   border: none;
 `;
 
-function ProblemStatement() {
+function ProblemStatement(props) {
+
+
+  const problemRef=useRef("")
+
+  function problemStatementHandler() {
+    props.onSaveProblemStatement(problemRef.current.value)
+   
+  }
+
+  // function submitHandler(e){
+  //   e.preventDefault(e)
+  //   props.onSaveProblemStatement(problemRef)
+  // }
+  ;
   return (
     <Container>
       <Wrapper>
-        <ProblemBox
+        <ProblemBox 
           type="text"
           placeholder="Problem Statement here"
+          onChange={problemStatementHandler}
+          // onClick={submitHandler}
+          ref={problemRef}
         ></ProblemBox>
       </Wrapper>
     </Container>

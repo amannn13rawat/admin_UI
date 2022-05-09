@@ -111,7 +111,7 @@ const ContentBox2 = styled.div`
 const dummyTestCases = [
   { input: "Input", output: "Output", id: "g1", points: "Weightage" },
 ];
-function MidBody() {
+function MidBody(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
   const [enteredInput, setEnteredInput] = useState("");
@@ -167,6 +167,9 @@ function MidBody() {
       setPopupRemoveType(stateReplied);
     }
   };
+
+  props.onSaveReward(enteredWeightage)
+  
 
   return (
     <ContainerMid>

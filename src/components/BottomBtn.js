@@ -6,6 +6,7 @@ const Container = styled.div`
   flex: 1;
   height: 44px;
 `;
+
 const Wrapper = styled.div`
   display: flex;
   padding: 0px 30px;
@@ -30,7 +31,6 @@ const ButtonSubmit = styled.button`
 
 const ButtonClear = styled.button`
   background-color: #b71c1c;
-
   width: 130px;
   border: none;
   border-radius: 5px;
@@ -44,7 +44,7 @@ const ButtonClear = styled.button`
   cursor: pointer;
 `;
 
-function BottomBtn() {
+function BottomBtn(props) {
   const [showClickPopup, setShowClickPopup] = useState(false);
   const submitRef = useRef();
 
@@ -55,12 +55,17 @@ function BottomBtn() {
     }
   }
 
+  function submitHandler(){
+    setShowClickPopup(!showClickPopup)
+    console.log(props.backEnd)
+  }
+
   return (
     <Container>
       <Wrapper>
         <ButtonSubmit
           ref={submitRef}
-          onClick={() => setShowClickPopup(!showClickPopup)}
+          onClick={submitHandler}
         >
           Submit
         </ButtonSubmit>
