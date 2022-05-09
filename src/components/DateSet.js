@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+// import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -27,29 +28,39 @@ function DateSet() {
     setSelectedEndDate(date);
   }
 
+  // console.log(selectedStartDate)
+  // console.log(selectedEndDate)
+  //  console.log(typeof(String(selectedStartDate)))
   return (
     <ContainerDateSet>
       <DatePicker
         selected={selectedStartDate}
         onChange={startDateChangeHandler}
-        dateFormat="yyyy-MM-dd"
+        dateFormat="yyyy-MM-dd HH:mm"
         minDate={new Date()}
-        // isClearable
         showYearDropdown
         scrollableMonthYearDropdown
-        placeholderText="Start Date"
+        placeholderText="Start Date and Time"
+        showTimeSelect
+        showTimeInput
+        timeFormat="HH:mm"
+        timeIntervals={10}
+        timeCaption="time"
       ></DatePicker>
       <DatePicker
         selected={selectedEndDate}
         onChange={endDateChangeHandler}
-        dateFormat="yyyy-MM-dd"
+        dateFormat="yyyy-MM-dd HH:mm"
         value={selectedEndDate}
         maxDate={new Date()}
-        // maxDate={new Date()}
-        // isClearable
         showYearDropdown
         scrollableMonthYearDropdown
-        placeholderText="End Date"
+        placeholderText="End Date and Time"
+        showTimeInput
+        showTimeSelect
+        timeFormat="HH:mm"
+        timeIntervals={10}
+        timeCaption="time"
       ></DatePicker>
     </ContainerDateSet>
   );

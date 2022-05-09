@@ -122,8 +122,8 @@ function MidBody() {
   const addRef = useRef();
   const removeRef = useRef();
 
-  console.log(typeof(enteredWeightage))
-  console.log(typeof(points))
+  // console.log(typeof(enteredWeightage))
+  // console.log(typeof(points))
   const testCasesArray = {
     input: enteredInput,
     id: Math.random().toString(),
