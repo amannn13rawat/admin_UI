@@ -22,13 +22,14 @@ const ProblemBox = styled.textarea`
   border: none;
 `;
 
-function ProblemStatement() {
+function ProblemStatement({giveProblemStatement}) {
   return (
     <Container>
       <Wrapper>
         <ProblemBox
           type="text"
           placeholder="Problem Statement here"
+          onChange={(e) => giveProblemStatement(e.target.value)}
         ></ProblemBox>
       </Wrapper>
     </Container>
