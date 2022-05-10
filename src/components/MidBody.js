@@ -140,11 +140,13 @@ function MidBody(props) {
     setAddedTestCases((prevTest) => {
       return [...prevTest, testCasesArray];
     });
+    // console.log(addedTestCases);
     setEnteredInput("");
     setEnteredOutput("");
     setEnteredWeightage("");
   }
-  console.log(addedTestCases)
+  props.onAddTestCases(addedTestCases);
+
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
 
@@ -177,9 +179,6 @@ function MidBody(props) {
     props.onAddDateTime(selectStartDate,selectEndDate)
   }
 
-  
-  // console.log(addedTestCases)
-  // console.log(typeof(addedTestCases))
   return (
     <ContainerMid>
       <ContainerBoxes>
