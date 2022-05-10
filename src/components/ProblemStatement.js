@@ -23,29 +23,24 @@ const ProblemBox = styled.textarea`
 `;
 
 function ProblemStatement(props) {
+  const [problemstmnt, setProblemStmnt] = useState("");
 
-
-  const problemRef=useRef("")
-
-  function problemStatementHandler() {
-    props.onSaveProblemStatement(problemRef.current.value)
-   
+  function problemStatementHandler(event) {
+    setProblemStmnt(event.target.value);
+    props.onSaveProblemStatement(problemstmnt);
+  
   }
-
-  // function submitHandler(e){
-  //   e.preventDefault(e)
-  //   props.onSaveProblemStatement(problemRef)
-  // }
-  ;
+  
+ 
+  
   return (
     <Container>
       <Wrapper>
-        <ProblemBox 
+        <ProblemBox
           type="text"
           placeholder="Problem Statement here"
           onChange={problemStatementHandler}
-          // onClick={submitHandler}
-          ref={problemRef}
+          // ref={problemRef}
         ></ProblemBox>
       </Wrapper>
     </Container>

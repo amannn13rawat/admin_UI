@@ -44,7 +44,7 @@ const ButtonClear = styled.button`
   cursor: pointer;
 `;
 
-function BottomBtn(props) {
+function BottomBtn({ backEnd,questionStartDate,questionEndDate}) {
   const [showClickPopup, setShowClickPopup] = useState(false);
   const submitRef = useRef();
 
@@ -55,18 +55,39 @@ function BottomBtn(props) {
     }
   }
 
-  function submitHandler(){
-    setShowClickPopup(!showClickPopup)
-    console.log(props.backEnd)
+  const questionStartEffectiveTime=questionStartDate
+  const questionEndEffectiveTime=questionEndDate
+  
+// console.log(backEnd)
+  async function submitHandler() {
+    setShowClickPopup(!showClickPopup);
+    // onRemove();
+    //  console.log(backEnd)
+    //  const body=JSON.stringify(backEnd)
+    //  console.log(body)
+    try{  
+       const response = await fetch(
+       ` http://localhost:8084/codingQuestions/addQuestion/startDate/${questionStartEffectiveTime}/endDate/${questionEndEffectiveTime}`,
+      {
+        method: "POST",
+        body: JSON.stringify(backEnd),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+  }catch(error){
+    console.log(error.message)
+  }
+
   }
 
   return (
     <Container>
       <Wrapper>
-        <ButtonSubmit
-          ref={submitRef}
-          onClick={submitHandler}
-        >
+        <ButtonSubmit ref={submitRef} onClick={submitHandler} >
           Submit
         </ButtonSubmit>
         {showClickPopup && (

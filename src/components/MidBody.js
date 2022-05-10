@@ -169,8 +169,21 @@ function MidBody(props) {
   };
 
   props.onSaveReward(enteredWeightage)
-  
 
+  //Pass select and End Date
+  function saveDateTimeHandler(selectStartDate,selectEndDate){
+    // console.log(selectStartDate)
+    // console.log(selectEndDate)
+    props.onAddDateTime(selectStartDate,selectEndDate)
+  }
+
+  var backendTestCases= addedTestCases.map(function(item){
+    return item['input']
+  })
+  console.log(backendTestCases)
+  
+  // console.log(addedTestCases)
+  // console.log(typeof(addedTestCases))
   return (
     <ContainerMid>
       <ContainerBoxes>
@@ -235,7 +248,7 @@ function MidBody(props) {
               />
             ))}
           </ContentBox2>
-          <DateSet></DateSet>
+          <DateSet onSaveDateTime={saveDateTimeHandler}></DateSet>
         </WrapperBox2>
       </ContainerBox2>
     </ContainerMid>
