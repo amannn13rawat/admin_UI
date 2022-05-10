@@ -140,10 +140,12 @@ function MidBody(props) {
     setAddedTestCases((prevTest) => {
       return [...prevTest, testCasesArray];
     });
+    // console.log(addedTestCases);
     setEnteredInput("");
     setEnteredOutput("");
     setEnteredWeightage("");
   }
+  props.onAddTestCases(addedTestCases);
 
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
@@ -177,13 +179,6 @@ function MidBody(props) {
     props.onAddDateTime(selectStartDate,selectEndDate)
   }
 
-  var backendTestCases= addedTestCases.map(function(item){
-    return item['input']
-  })
-  console.log(backendTestCases)
-  
-  // console.log(addedTestCases)
-  // console.log(typeof(addedTestCases))
   return (
     <ContainerMid>
       <ContainerBoxes>

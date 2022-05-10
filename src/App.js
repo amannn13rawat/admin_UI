@@ -10,32 +10,34 @@ function App() {
   const [defaultReward, setDefaultReward] = useState("");
   const [questionStartDate, setQuestionStartDate] = useState("");
   const [questionEndDate, setQuestionEndDate] = useState("");
+  const [testCases,setTestCases] = useState([]);
 
   function onSaveProblemStatementHandler(problemStatemnet) {
-    // const questionText=problemStatemnet
     setQuestionText(problemStatemnet);
-    // console.log(typeof(questionText));
   }
 
   function onSaveRewardHandler(reward) {
-    // const defaultReward=reward
     setDefaultReward(reward);
-    // console.log(defaultReward)
   }
 
   function addDateTimeHandler(selectStartDate, selectEndDate) {
-    // console.log(selectStartDate)
-    // console.log(selectEndDate)
     setQuestionStartDate(selectStartDate);
     setQuestionEndDate(selectEndDate);
   }
-  // console.log(questionStartDate)
-  // console.log(questionEndDate)
 
-  // function removeHandler(){
-  //  setQuestionText("")
-  //  console.log(questionText)
-  // }
+ const testCaseArray = [];
+
+//  testCaseArray.push(
+//   testCases.map((testCase) => (testCase.input+':'+testCase.output))
+//  )
+
+testCases.map((testCase) => (
+  testCaseArray.push(testCase.input+':'+testCase.output)
+))
+
+ console.log(testCaseArray);
+
+
 
   const backEnd = {
     questionText: questionText,
@@ -43,8 +45,6 @@ function App() {
     defaultReward: parseInt(defaultReward, 10),
   };
 
-  // console.log(questionText)
-  // console.log(backEnd)
   return (
     <>
       <Navbar></Navbar>
@@ -55,6 +55,7 @@ function App() {
       <MidBody
         onSaveReward={onSaveRewardHandler}
         onAddDateTime={addDateTimeHandler}
+        onAddTestCases={setTestCases}
       ></MidBody>
       <BottomBtn
         backEnd={backEnd}
