@@ -144,7 +144,7 @@ function MidBody(props) {
     setEnteredOutput("");
     setEnteredWeightage("");
   }
-
+  console.log(addedTestCases)
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
 
@@ -177,10 +177,6 @@ function MidBody(props) {
     props.onAddDateTime(selectStartDate,selectEndDate)
   }
 
-  var backendTestCases= addedTestCases.map(function(item){
-    return item['input']
-  })
-  console.log(backendTestCases)
   
   // console.log(addedTestCases)
   // console.log(typeof(addedTestCases))
