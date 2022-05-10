@@ -111,7 +111,7 @@ const ContentBox2 = styled.div`
 const dummyTestCases = [
   { input: "Input", output: "Output", id: "g1", points: "Weightage" },
 ];
-function MidBody() {
+function MidBody(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
   const [enteredInput, setEnteredInput] = useState("");
@@ -122,8 +122,8 @@ function MidBody() {
   const addRef = useRef();
   const removeRef = useRef();
 
-  console.log(typeof(enteredWeightage))
-  console.log(typeof(points))
+  // console.log(typeof(enteredWeightage))
+  // console.log(typeof(points))
   const testCasesArray = {
     input: enteredInput,
     id: Math.random().toString(),
@@ -168,6 +168,22 @@ function MidBody() {
     }
   };
 
+  props.onSaveReward(enteredWeightage)
+
+  //Pass select and End Date
+  function saveDateTimeHandler(selectStartDate,selectEndDate){
+    // console.log(selectStartDate)
+    // console.log(selectEndDate)
+    props.onAddDateTime(selectStartDate,selectEndDate)
+  }
+
+  var backendTestCases= addedTestCases.map(function(item){
+    return item['input']
+  })
+  console.log(backendTestCases)
+  
+  // console.log(addedTestCases)
+  // console.log(typeof(addedTestCases))
   return (
     <ContainerMid>
       <ContainerBoxes>
@@ -232,7 +248,7 @@ function MidBody() {
               />
             ))}
           </ContentBox2>
-          <DateSet></DateSet>
+          <DateSet onSaveDateTime={saveDateTimeHandler}></DateSet>
         </WrapperBox2>
       </ContainerBox2>
     </ContainerMid>
