@@ -31,12 +31,9 @@ function App() {
 //   testCases.map((testCase) => (testCase.input+':'+testCase.output))
 //  )
 
-testCases.map((testCase) => (
-  testCaseArray.push(testCase.input+':'+testCase.output)
-))
-
- console.log(testCaseArray);
-
+testCases.map((testCase,index) => {
+  if(index>0)   testCaseArray.push(testCase.input+':'+testCase.output)
+})
 
 
   const backEnd = {
