@@ -174,13 +174,18 @@ function MidBody(props) {
     }
   };
 
-  props.onSaveReward(enteredWeightage);
+ 
 
   //Pass select and End Date
-  function saveDateTimeHandler(selectStartDate, selectEndDate) {
-    // console.log(selectStartDate)
-    // console.log(selectEndDate)
-    props.onAddDateTime(selectStartDate, selectEndDate);
+  // function saveDateTimeHandler(selectStartDate, selectEndDate) {
+  //   // console.log(selectStartDate)
+  //   // console.log(selectEndDate)
+  //   props.onAddDateTime(selectStartDate, selectEndDate);
+  // }
+
+  function weightageHandler(event){
+    setEnteredWeightage(event.target.value)
+    props.onSaveReward(enteredWeightage);
   }
 
   return (
@@ -203,7 +208,7 @@ function MidBody(props) {
             input="text"
             placeholder="Weightage"
             value={enteredWeightage}
-            onChange={(event) => setEnteredWeightage(event.target.value)}
+            onChange={weightageHandler}
           ></ContentBoxes>
         </WrapperBoxes>
       </ContainerBoxes>
@@ -265,7 +270,7 @@ function MidBody(props) {
               />
             ))} */}
           </ContentBox2>
-          <DateSet onSaveDateTime={saveDateTimeHandler}></DateSet>
+          <DateSet onSaveDateTime={(selectStartDate,selectEndDate)=>{props.onAddDateTime(selectStartDate, selectEndDate);}}></DateSet>
         </WrapperBox2>
       </ContainerBox2>
     </ContainerMid>

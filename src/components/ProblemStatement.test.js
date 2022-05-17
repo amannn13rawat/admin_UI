@@ -2,6 +2,7 @@ import ProblemStatement from "./ProblemStatement";
 import { render, screen, getByRole, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
+import MidBody from './MidBody'
 
 describe("Testing Problem Statement", () => {
   test("render problem statement", () => {
@@ -47,3 +48,9 @@ test("problem", async () => {
 //   expect(screen.getByTestId("email-input")).toHaveValue("test@mail.com");
 //   expect(screen.queryByTestId("error-msg")).not.toBeInTheDocument();
 // });
+
+
+test('midbody',()=>{
+  render(<MidBody/>)
+  screen.debug();
+})

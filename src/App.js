@@ -20,6 +20,7 @@ function App() {
   function onSaveRewardHandler(reward) {
     setDefaultReward(reward);
   }
+  console.log('default reaward',defaultReward)
 
   function addDateTimeHandler(selectStartDate, selectEndDate) {
     setQuestionStartDate(selectStartDate);
