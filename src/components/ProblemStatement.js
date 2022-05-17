@@ -28,8 +28,8 @@ function ProblemStatement(props) {
 
   function problemStatementHandler(event) {
     setProblemStmnt(event.target.value);
-    console.log(problemstmnt);
     props.onSaveProblemStatement(problemstmnt);
+    console.log(problemstmnt);
   }
   // console.log(problemstmnt)
   return (
