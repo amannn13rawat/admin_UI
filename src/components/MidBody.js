@@ -112,6 +112,7 @@ const ContentBox2 = styled.div`
 // const dummyTestCases = [
 //   { input: "Input", output: "Output", id: "g1", points: "Weightage" },
 // ];
+const testCases = [];
 function MidBody(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
@@ -119,6 +120,7 @@ function MidBody(props) {
   const [enteredOutput, setEnteredOutput] = useState("");
   const [enteredWeightage, setEnteredWeightage] = useState("");
   const [addedTestCases, setAddedTestCases] = useState([]);
+
 
   const addRef = useRef();
   const removeRef = useRef();
@@ -139,8 +141,11 @@ function MidBody(props) {
     setAddedTestCases((prevTest) => {
       return [...prevTest, testCasesArray];
     });
-    props.onAddTestCases(addedTestCases);
-    console.log(addedTestCases);
+    testCases.push(testCasesArray);
+    // console.log(testCases);
+
+    props.onAddTestCases(testCases);
+    // console.log(addedTestCases);
     setEnteredInput("");
     setEnteredOutput("");
     setEnteredWeightage("");
@@ -241,7 +246,7 @@ function MidBody(props) {
                 </tr>
               </thead>
               <tbody>
-                {addedTestCases.map((test) => (
+                {testCases.map((test) => (
                   <tr>
                     <td>{test.input}</td>
                     <td>{test.output}</td>
