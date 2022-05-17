@@ -8,7 +8,7 @@ const ContainerDateSet = styled.div`
   border-radius: 10px;
   background: #c4c4c4;
   padding: 10px 20px;
-  height: 221px;
+  /* height: 221px; */
   width: 100%;
   border: none;
   display: flex;
@@ -37,13 +37,10 @@ function DateSet(props) {
 
   //Passing to midBody
   props.onSaveDateTime(selectStartDate,selectEndDate)
-  // console.log(selectStartDate)
-  // console.log(selectEndDate)
-  // console.log(typeof(selectStartDate))
+
   return (
     <ContainerDateSet>
       <DatePicker
-
         selected={selectedStartDate}
         onChange={startDateChangeHandler}
         dateFormat="yyyy-MM-dd HH:mm"
@@ -65,7 +62,7 @@ function DateSet(props) {
         minDate={new Date()}
         showYearDropdown
         scrollableMonthYearDropdown
-        placeholderText="End Date and Time"
+        placeholderText="End Date and Time *"
         showTimeInput
         showTimeSelect
         timeFormat="HH:mm"

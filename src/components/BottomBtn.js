@@ -4,13 +4,15 @@ import SubmitPopup from "./SubmitPopup";
 
 const Container = styled.div`
   flex: 1;
-  height: 44px;
+  height: 43px;
+  /* background-color: blue; */
 `;
 
 const Wrapper = styled.div`
   display: flex;
   padding: 0px 30px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+  /* margin-top: 16px; */
 `;
 
 const ButtonSubmit = styled.button`
@@ -44,7 +46,7 @@ const ButtonClear = styled.button`
   cursor: pointer;
 `;
 
-function BottomBtn({ backEnd,questionStartDate,questionEndDate}) {
+function BottomBtn({ backEnd, questionStartDate, questionEndDate }) {
   const [showClickPopup, setShowClickPopup] = useState(false);
   const submitRef = useRef();
 
@@ -55,39 +57,57 @@ function BottomBtn({ backEnd,questionStartDate,questionEndDate}) {
     }
   }
 
-  const questionStartEffectiveTime=questionStartDate
-  const questionEndEffectiveTime=questionEndDate
-  
-console.log(backEnd)
+  // if(backEnd.questionText === ''){
+  //   setIsValid(false);
+  // }
+  // {!isValid && console.log("write questionText")}
+
+  const questionStartEffectiveTime = questionStartDate;
+  const questionEndEffectiveTime = questionEndDate;
+
+  // console.log(backEnd);
   async function submitHandler() {
-    setShowClickPopup(!showClickPopup);
-    // onRemove();
+    
+
+    // mandatory((backEnd)=>{
+    //   try {
+    //     backEnd.questionText
+
+    //   } catch (error) {
+
+    //   }
+    // })
+
     //  console.log(backEnd)
     //  const body=JSON.stringify(backEnd)
     //  console.log(body)
-    try{  
-       const response = await fetch(
-       ` http://localhost:8084/codingQuestions/addQuestion/startDate/${questionStartEffectiveTime}/endDate/${questionEndEffectiveTime}`,
-      {
-        method: "POST",
-        body: JSON.stringify(backEnd),
-        headers: {
-          "Content-Type": "application/json",
-        },
+    if (backEnd.questionText && backEnd.testCases && questionEndEffectiveTime) {
+      setShowClickPopup(!showClickPopup);
+      try {
+        const response = await fetch(
+          ` http://localhost:8084/codingQuestions/addQuestion/startDate/${questionStartEffectiveTime}/endDate/${questionEndEffectiveTime}`,
+          {
+            method: "POST",
+            body: JSON.stringify(backEnd),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.log(error.message);
       }
-    );
-    const data = await response.json();
-    console.log(data);
-  }catch(error){
-    console.log(error.message)
-  }
-
+    } else {
+      alert("Please Enter the Problem statement , Test Case and End Date Fields");
+    }
   }
 
   return (
     <Container>
       <Wrapper>
-        <ButtonSubmit ref={submitRef} onClick={submitHandler} >
+        <ButtonSubmit ref={submitRef} onClick={submitHandler}>
           Submit
         </ButtonSubmit>
         {showClickPopup && (

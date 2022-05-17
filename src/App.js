@@ -10,11 +10,12 @@ function App() {
   const [defaultReward, setDefaultReward] = useState("");
   const [questionStartDate, setQuestionStartDate] = useState("");
   const [questionEndDate, setQuestionEndDate] = useState("");
-  const [testCases,setTestCases] = useState([]);
+  const [testCases, setTestCases] = useState([]);
 
   function onSaveProblemStatementHandler(problemStatemnet) {
     setQuestionText(problemStatemnet);
   }
+  console.log(questionText)
 
   function onSaveRewardHandler(reward) {
     setDefaultReward(reward);
@@ -25,22 +26,26 @@ function App() {
     setQuestionEndDate(selectEndDate);
   }
 
- const testCaseArray = [];
+  console.log(testCases)
+  const testCaseArrayList = [];
 
-//  testCaseArray.push(
-//   testCases.map((testCase) => (testCase.input+':'+testCase.output))
-//  )
+  //  testCaseArray.push(
+  //   testCases.map((testCase) => (testCase.input+':'+testCase.output))
+  //  )
 
-testCases.map((testCase,index) => {
-  if(index>0)   testCaseArray.push(testCase.input+':'+testCase.output)
-})
+  testCases.map((testCase, index) => {
+    testCaseArrayList.push(testCase.input + ":" + testCase.output);
+  });
 
+  // console.log(testCaseArrayList);
 
   const backEnd = {
     questionText: questionText,
-    testCases:testCaseArray,
+    testCases: testCaseArrayList,
     defaultReward: parseInt(defaultReward, 10),
   };
+
+  // console.log(backEnd.questionText)
 
   return (
     <>

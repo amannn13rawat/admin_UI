@@ -1,13 +1,15 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Popup from "./Popup";
-import TestCasesList from "./TestCasesList";
 import DateSet from "./DateSet";
+import "./TableList.css";
 
 //Midbody css
 const ContainerMid = styled.div`
   width: 100%;
   display: flex;
+  height: 490px;
+  /* background-color: orange; */
 `;
 
 //BOXES CSS
@@ -16,7 +18,7 @@ const ContainerBoxes = styled.div`
 `;
 
 const WrapperBoxes = styled.div`
-  padding-top: 5px;
+  padding-top: 15px;
   padding-left: 30px;
   padding-right: 50px;
 `;
@@ -87,10 +89,11 @@ const ButtonRemove = styled.button`
 //BOX2 CSS
 const ContainerBox2 = styled.div`
   flex: 5;
+  /* background-color: yellow; */
 `;
 
 const WrapperBox2 = styled.div`
-  padding-top: 5px;
+  padding-top: 15px;
   padding-left: 30px;
   padding-right: 70px;
 `;
@@ -99,25 +102,23 @@ const ContentBox2 = styled.div`
   border-radius: 10px;
   background: #c4c4c4;
   padding: 10px 20px;
-  height: 221px;
+  height: 390px;
   width: 100%;
   border: none;
   overflow-y: scroll;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
 `;
 
-
-
-const dummyTestCases = [
-  { input: "Input", output: "Output", id: "g1", points: "Weightage" },
-];
+// const dummyTestCases = [
+//   { input: "Input", output: "Output", id: "g1", points: "Weightage" },
+// ];
 function MidBody(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
   const [enteredInput, setEnteredInput] = useState("");
   const [enteredOutput, setEnteredOutput] = useState("");
   const [enteredWeightage, setEnteredWeightage] = useState("");
-  const [addedTestCases, setAddedTestCases] = useState(dummyTestCases);
+  const [addedTestCases, setAddedTestCases] = useState([]);
 
   const addRef = useRef();
   const removeRef = useRef();
@@ -129,9 +130,7 @@ function MidBody(props) {
     id: Math.random().toString(),
     output: enteredOutput,
     points: Math.floor(enteredWeightage),
-    
   };
- 
 
   function addHandler() {
     setPopupAddType(!popupAddType);
@@ -140,12 +139,12 @@ function MidBody(props) {
     setAddedTestCases((prevTest) => {
       return [...prevTest, testCasesArray];
     });
-    // console.log(addedTestCases);
+    props.onAddTestCases(addedTestCases);
+    console.log(addedTestCases);
     setEnteredInput("");
     setEnteredOutput("");
     setEnteredWeightage("");
   }
-  props.onAddTestCases(addedTestCases);
 
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
@@ -170,13 +169,13 @@ function MidBody(props) {
     }
   };
 
-  props.onSaveReward(enteredWeightage)
+  props.onSaveReward(enteredWeightage);
 
   //Pass select and End Date
-  function saveDateTimeHandler(selectStartDate,selectEndDate){
+  function saveDateTimeHandler(selectStartDate, selectEndDate) {
     // console.log(selectStartDate)
     // console.log(selectEndDate)
-    props.onAddDateTime(selectStartDate,selectEndDate)
+    props.onAddDateTime(selectStartDate, selectEndDate);
   }
 
   return (
@@ -185,7 +184,7 @@ function MidBody(props) {
         <WrapperBoxes>
           <ContentBoxes
             input="text"
-            placeholder="TestCases Input"
+            placeholder="TestCases Input *"
             value={enteredInput}
             onChange={(event) => setEnteredInput(event.target.value)}
           ></ContentBoxes>
@@ -233,7 +232,25 @@ function MidBody(props) {
       <ContainerBox2>
         <WrapperBox2>
           <ContentBox2>
-            {addedTestCases.map((test) => (
+            <table>
+              <thead>
+                <tr>
+                  <th>Input</th>
+                  <th>Output</th>
+                  <th>Weightage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {addedTestCases.map((test) => (
+                  <tr>
+                    <td>{test.input}</td>
+                    <td>{test.output}</td>
+                    <td>{test.points}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {/* {addedTestCases.map((test) => (
               <TestCasesList
                 key={test.id}
                 id={test.id}
@@ -241,7 +258,7 @@ function MidBody(props) {
                 output={test.output}
                 points={test.points}
               />
-            ))}
+            ))} */}
           </ContentBox2>
           <DateSet onSaveDateTime={saveDateTimeHandler}></DateSet>
         </WrapperBox2>
