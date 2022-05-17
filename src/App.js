@@ -26,7 +26,7 @@ function App() {
     setQuestionEndDate(selectEndDate);
   }
 
-  console.log(testCases)
+  // console.log(testCases)
   const testCaseArrayList = [];
 
   //  testCaseArray.push(
