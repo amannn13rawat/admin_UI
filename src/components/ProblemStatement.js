@@ -26,12 +26,12 @@ const ProblemBox = styled.textarea`
 function ProblemStatement(props) {
   const [problemstmnt, setProblemStmnt] = useState("");
 
-  function problemStatementHandler(event) {
-    setProblemStmnt(event.target.value);
-    props.onSaveProblemStatement(problemstmnt);
-    console.log(problemstmnt);
-  }
-  // console.log(problemstmnt)
+  // function problemStatementHandler(event) {
+  //   setProblemStmnt(event.target.value);
+  //   console.log("Problem Statement valiable value", problemstmnt);
+  //   props.onSaveProblemStatement(problemstmnt);
+  // }
+
   return (
     <Container>
       <Wrapper>
@@ -40,7 +40,7 @@ function ProblemStatement(props) {
           role="textbox"
           type="text"
           placeholder="Problem Statement here upto 500 characters *"
-          onChange={problemStatementHandler}
+          onChange={(event) => props.onSaveProblemStatement(event.target.value)}
         ></ProblemBox>
       </Wrapper>
     </Container>
