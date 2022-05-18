@@ -112,13 +112,13 @@ const ContentBox2 = styled.div`
 //   { input: "Input", output: "Output", id: "g1", points: "Weightage" },
 // ];
 const addedTestCases = [];
-let weightage="";
+let weightage = "";
 function MidBody(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
   const [enteredInput, setEnteredInput] = useState("");
   const [enteredOutput, setEnteredOutput] = useState("");
-  // const [enteredWeightage, setEnteredWeightage] = useState("");totalWeightag
+  // const [enteredWeightage, setEnteredWeightage] = useState("");
   // const [addedTestCases, setAddedTestCases] = useState([]);
 
   const addRef = useRef();
@@ -128,7 +128,7 @@ function MidBody(props) {
     // setEnteredWeightage(event.target.value)
     weightage = event.target.value;
     // props.onSaveReward(enteredWeightage);
-    
+    props.onSaveReward(weightage);
   }
   // console.log(typeof(enteredWeightage))
   // console.log(typeof(points))
@@ -144,16 +144,11 @@ function MidBody(props) {
     setPopupAddType(!popupAddType);
     addedTestCases.push(testCasesArray);
     props.onAddTestCases(addedTestCases);
-<<<<<<< HEAD
-    totalWeightage=totalWeightage+parseInt(weightage);
-    console.log(totalWeightage)
-=======
->>>>>>> 061e15765f099e01d9c0915f84f822aa53a08994
     setEnteredInput("");
     setEnteredOutput("");
     weightage = "";
   }
-  props.onSaveReward(totalWeightage);
+  console.log("mid body", addedTestCases);
 
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);

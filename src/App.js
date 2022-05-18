@@ -5,6 +5,7 @@ import ProblemStatement from "./components/ProblemStatement";
 import MidBody from "./components/MidBody";
 import { useState } from "react";
 
+
 function App() {
   const [questionText, setQuestionText] = useState("");
   const [defaultReward, setDefaultReward] = useState("");
@@ -12,34 +13,30 @@ function App() {
   const [questionStartDate, setQuestionStartDate] = useState("");
   const [questionEndDate, setQuestionEndDate] = useState("");
   const [testCases, setTestCases] = useState([]);
-  let netWeightage =0;
+  let netWeightage = 0;
+
   function onSaveProblemStatementHandler(problemStatemnet) {
     setQuestionText(problemStatemnet);
   }
 
-
   const onSaveRewardHandler = (reward) => {
     setDefaultReward(reward);
   };
-<<<<<<< HEAD
-  console.log("default reaward", defaultReward);
-=======
-
->>>>>>> 061e15765f099e01d9c0915f84f822aa53a08994
-
+  // console.log(defaultReward)
   function addDateTimeHandler(selectStartDate, selectEndDate) {
     setQuestionStartDate(selectStartDate);
     setQuestionEndDate(selectEndDate);
   }
 
-  const testCaseArrayList = [];
 
+  const testCaseArrayList = [];
 
   testCases.map((testCase) => {
     testCaseArrayList.push(testCase.input + ":" + testCase.output);
     netWeightage = netWeightage + parseInt(testCase.points);
   });
-
+  console.log("testCases Array list",testCaseArrayList)
+  console.log("netweightage",netWeightage)
 
   const backEnd = {
     questionText: questionText,
@@ -47,13 +44,11 @@ function App() {
     defaultReward: netWeightage,
   };
 
-
-
   return (
     <>
       <Navbar></Navbar>
       <ProblemStatement
-        onSaveProblemStatement = {onSaveProblemStatementHandler}
+        onSaveProblemStatement={onSaveProblemStatementHandler}
       ></ProblemStatement>
       <MidBody
         onSaveReward={onSaveRewardHandler}
