@@ -15,17 +15,19 @@ function App() {
   function onSaveProblemStatementHandler(problemStatemnet) {
     setQuestionText(problemStatemnet);
   }
-  console.log(questionText)
+  // console.log(questionText);
 
-  function onSaveRewardHandler(reward) {
+  const onSaveRewardHandler = (reward) => {
     setDefaultReward(reward);
-  }
-  console.log('default reaward',defaultReward)
+  };
+  console.log("default reaward", defaultReward);
 
   function addDateTimeHandler(selectStartDate, selectEndDate) {
     setQuestionStartDate(selectStartDate);
     setQuestionEndDate(selectEndDate);
   }
+  // console.log(questionStartDate)
+  // console.log(questionEndDate)
 
   // console.log(testCases)
   const testCaseArrayList = [];
@@ -34,7 +36,7 @@ function App() {
   //   testCases.map((testCase) => (testCase.input+':'+testCase.output))
   //  )
 
-  testCases.map((testCase, index) => {
+  testCases.map((testCase) => {
     testCaseArrayList.push(testCase.input + ":" + testCase.output);
   });
 
@@ -52,8 +54,7 @@ function App() {
     <>
       <Navbar></Navbar>
       <ProblemStatement
-        onSaveProblemStatement={onSaveProblemStatementHandler}
-        questionText={questionText}
+        onSaveProblemStatement = {onSaveProblemStatementHandler}
       ></ProblemStatement>
       <MidBody
         onSaveReward={onSaveRewardHandler}

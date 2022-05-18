@@ -71,7 +71,6 @@ const ButtonRemove = styled.button`
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-
   background-color: #b71c1c;
   width: 130px;
   border: none;
@@ -112,54 +111,67 @@ const ContentBox2 = styled.div`
 // const dummyTestCases = [
 //   { input: "Input", output: "Output", id: "g1", points: "Weightage" },
 // ];
-const testCases = [];
+const addedTestCases = [];
+let weightage="";
+let totalWeightage=0;
 function MidBody(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
   const [enteredInput, setEnteredInput] = useState("");
   const [enteredOutput, setEnteredOutput] = useState("");
-  const [enteredWeightage, setEnteredWeightage] = useState("");
-  const [addedTestCases, setAddedTestCases] = useState([]);
-
+  // const [enteredWeightage, setEnteredWeightage] = useState("");
+  // const [addedTestCases, setAddedTestCases] = useState([]);
 
   const addRef = useRef();
   const removeRef = useRef();
 
+  function weightageHandler(event) {
+    // setEnteredWeightage(event.target.value)
+    weightage = event.target.value;
+    // props.onSaveReward(enteredWeightage);
+    totalWeightage =totalWeightage+ parseInt(weightage,10);
+    console.log(totalWeightage);
+    props.onSaveReward(weightage);
+  }
   // console.log(typeof(enteredWeightage))
   // console.log(typeof(points))
   const testCasesArray = {
     input: enteredInput,
     id: Math.random().toString(),
     output: enteredOutput,
-    points: Math.floor(enteredWeightage),
+    // points: Math.floor(enteredWeightage),
+    points: weightage,
   };
 
   function addHandler() {
     setPopupAddType(!popupAddType);
 
     //Putting aaray in addedTestCases
-    setAddedTestCases((prevTest) => {
-      return [...prevTest, testCasesArray];
-    });
-    testCases.push(testCasesArray);
+    // setAddedTestCases((prevTest) => {
+    //   return [...prevTest, testCasesArray];
+    // });
+    addedTestCases.push(testCasesArray);
     // console.log(testCases);
 
-    props.onAddTestCases(testCases);
+    props.onAddTestCases(addedTestCases);
     // console.log(addedTestCases);
     setEnteredInput("");
     setEnteredOutput("");
-    setEnteredWeightage("");
+    // setEnteredWeightage("");
+    weightage = "";
   }
 
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
 
     //Deleting the testCases from addedTestCases
-    setAddedTestCases((addedTestCases) => {
-      const temp = addedTestCases.pop();
-      const tempDeletedArray = addedTestCases.filter((e) => e.id !== temp.id);
-      return tempDeletedArray;
-    });
+    // setAddedTestCases((addedTestCases) => {
+    //   const temp = addedTestCases.pop();
+    //   const tempDeletedArray = addedTestCases.filter((e) => e.id !== temp.id);
+    //   return tempDeletedArray;
+    // });
+    //popup testcases from testCases list
+    addedTestCases.pop();
   }
 
   //Removing mousedown EVent
@@ -174,19 +186,12 @@ function MidBody(props) {
     }
   };
 
- 
-
   //Pass select and End Date
   // function saveDateTimeHandler(selectStartDate, selectEndDate) {
   //   // console.log(selectStartDate)
   //   // console.log(selectEndDate)
   //   props.onAddDateTime(selectStartDate, selectEndDate);
   // }
-
-  function weightageHandler(event){
-    setEnteredWeightage(event.target.value)
-    props.onSaveReward(enteredWeightage);
-  }
 
   return (
     <ContainerMid>
@@ -195,19 +200,22 @@ function MidBody(props) {
           <ContentBoxes
             input="text"
             placeholder="TestCases Input *"
+            role="textbox"
             value={enteredInput}
             onChange={(event) => setEnteredInput(event.target.value)}
           ></ContentBoxes>
           <ContentBoxes
             input="text"
             placeholder="Expected Output"
+            role="textbox"
             value={enteredOutput}
             onChange={(event) => setEnteredOutput(event.target.value)}
           ></ContentBoxes>
           <ContentBoxes
             input="text"
             placeholder="Weightage"
-            value={enteredWeightage}
+            role="textbox"
+            value={weightage}
             onChange={weightageHandler}
           ></ContentBoxes>
         </WrapperBoxes>
@@ -251,7 +259,7 @@ function MidBody(props) {
                 </tr>
               </thead>
               <tbody>
-                {testCases.map((test) => (
+                {addedTestCases.map((test) => (
                   <tr>
                     <td>{test.input}</td>
                     <td>{test.output}</td>
@@ -260,17 +268,12 @@ function MidBody(props) {
                 ))}
               </tbody>
             </table>
-            {/* {addedTestCases.map((test) => (
-              <TestCasesList
-                key={test.id}
-                id={test.id}
-                input={test.input}
-                output={test.output}
-                points={test.points}
-              />
-            ))} */}
           </ContentBox2>
-          <DateSet onSaveDateTime={(selectStartDate,selectEndDate)=>{props.onAddDateTime(selectStartDate, selectEndDate);}}></DateSet>
+          <DateSet
+            onSaveDateTime={(selectStartDate, selectEndDate) => {
+              props.onAddDateTime(selectStartDate, selectEndDate);
+            }}
+          ></DateSet>
         </WrapperBox2>
       </ContainerBox2>
     </ContainerMid>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -36,7 +36,12 @@ function DateSet(props) {
   }
 
   //Passing to midBody
-  props.onSaveDateTime(selectStartDate,selectEndDate)
+  useEffect(()=>{
+    const startDate=selectStartDate;
+    const endDate=selectEndDate;
+    if(startDate && endDate) props.onSaveDateTime(selectStartDate,selectEndDate)
+  },[selectStartDate,selectEndDate])
+  
 
   return (
     <ContainerDateSet>

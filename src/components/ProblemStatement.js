@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import {React,useEffect,useState} from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -24,13 +24,19 @@ const ProblemBox = styled.textarea`
 `;
 
 function ProblemStatement(props) {
-  const [problemstmnt, setProblemStmnt] = useState("");
 
-  // function problemStatementHandler(event) {
-  //   setProblemStmnt(event.target.value);
-  //   console.log("Problem Statement valiable value", problemstmnt);
-  //   props.onSaveProblemStatement(problemstmnt);
-  // }
+  const [problemstmnt,setProblemStmnt]=useState();
+
+  function problemStatementHandler(event) {
+    setProblemStmnt(event.target.value);
+    // console.log("Problem Statement valiable value", problemstmnt);
+    // props.onSaveProblemStatement(problemstmnt);
+  }
+
+  useEffect(()=>{
+    const text=problemstmnt;
+    if (problemstmnt) props.onSaveProblemStatement(text)
+  },[problemstmnt])
 
   return (
     <Container>
@@ -40,7 +46,8 @@ function ProblemStatement(props) {
           role="textbox"
           type="text"
           placeholder="Problem Statement here upto 500 characters *"
-          onChange={(event) => props.onSaveProblemStatement(event.target.value)}
+          // onChange={(event) => props.onSaveProblemStatement(event.target.value)}
+          onChange={problemStatementHandler}
         ></ProblemBox>
       </Wrapper>
     </Container>
