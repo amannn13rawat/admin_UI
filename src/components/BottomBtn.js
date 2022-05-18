@@ -67,21 +67,7 @@ function BottomBtn({ backEnd, questionStartDate, questionEndDate }) {
 
   // console.log(backEnd);
   async function submitHandler() {
-    
-
-    // mandatory((backEnd)=>{
-    //   try {
-    //     backEnd.questionText
-
-    //   } catch (error) {
-
-    //   }
-    // })
-
-    //  console.log(backEnd)
-    //  const body=JSON.stringify(backEnd)
-    //  console.log(body)
-    if (backEnd.questionText && backEnd.testCases && questionEndEffectiveTime) {
+    if (backEnd.questionText && backEnd.testCases && questionEndEffectiveTime && backEnd.defaultReward===100) {
       setShowClickPopup(!showClickPopup);
       try {
         const response = await fetch(
@@ -99,6 +85,8 @@ function BottomBtn({ backEnd, questionStartDate, questionEndDate }) {
       } catch (error) {
         console.log(error.message);
       }
+    } else if(backEnd.defaultReward !==100) {
+      alert("Default Reward must be 100");
     } else {
       alert("Please Enter the Problem statement , Test Case and End Date Fields");
     }

@@ -11,44 +11,38 @@ function App() {
   const [questionStartDate, setQuestionStartDate] = useState("");
   const [questionEndDate, setQuestionEndDate] = useState("");
   const [testCases, setTestCases] = useState([]);
-
+  let netWeightage =0;
   function onSaveProblemStatementHandler(problemStatemnet) {
     setQuestionText(problemStatemnet);
   }
-  // console.log(questionText);
+
 
   const onSaveRewardHandler = (reward) => {
     setDefaultReward(reward);
   };
-  // console.log("default reaward", defaultReward);
+
 
   function addDateTimeHandler(selectStartDate, selectEndDate) {
     setQuestionStartDate(selectStartDate);
     setQuestionEndDate(selectEndDate);
   }
-  // console.log(questionStartDate)
-  // console.log(questionEndDate)
 
-  // console.log(testCases)
   const testCaseArrayList = [];
 
-  //  testCaseArray.push(
-  //   testCases.map((testCase) => (testCase.input+':'+testCase.output))
-  //  )
 
   testCases.map((testCase) => {
     testCaseArrayList.push(testCase.input + ":" + testCase.output);
+    netWeightage = netWeightage + parseInt(testCase.points);
   });
 
-  // console.log(testCaseArrayList);
 
   const backEnd = {
     questionText: questionText,
     testCases: testCaseArrayList,
-    defaultReward: parseInt(defaultReward, 10),
+    defaultReward: netWeightage,
   };
 
-  // console.log(backEnd.questionText)
+
 
   return (
     <>

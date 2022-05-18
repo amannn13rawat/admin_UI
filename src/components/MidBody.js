@@ -113,7 +113,6 @@ const ContentBox2 = styled.div`
 // ];
 const addedTestCases = [];
 let weightage="";
-let totalWeightage=0;
 function MidBody(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
@@ -145,7 +144,6 @@ function MidBody(props) {
     setPopupAddType(!popupAddType);
     addedTestCases.push(testCasesArray);
     props.onAddTestCases(addedTestCases);
-    totalWeightage=totalWeightage+parseInt(weightage);
     setEnteredInput("");
     setEnteredOutput("");
     weightage = "";
@@ -155,9 +153,6 @@ function MidBody(props) {
     setPopupRemoveType(!popupRemoveType);
 
     //Deleting the testCases from addedTestCases
-    const len = addedTestCases.length;
-    const deletedTestCasesWeightage = addedTestCases[len - 1].points;
-    totalWeightage = totalWeightage - parseInt(deletedTestCasesWeightage);
     addedTestCases.pop();
   }
 
