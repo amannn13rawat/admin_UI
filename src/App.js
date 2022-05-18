@@ -28,7 +28,11 @@ function App() {
     setQuestionEndDate(selectEndDate);
   }
 
+  const onSaveTestCaseHandler = (testCase) => {
+    setTestCases(testCases => [...testCases, testCase]);
+  }
 
+  // console.log("Kaam vali array", testCases);
   const testCaseArrayList = [];
 
   testCases.map((testCase) => {
@@ -40,8 +44,8 @@ function App() {
 
   const backEnd = {
     questionText: questionText,
-    testCases: testCaseArrayList,
-    defaultReward: netWeightage,
+    testCases: testCases,
+    defaultReward: defaultReward,
   };
 
   return (
@@ -51,6 +55,7 @@ function App() {
         onSaveProblemStatement={onSaveProblemStatementHandler}
       ></ProblemStatement>
       <MidBody
+        saveTestCase={onSaveTestCaseHandler}
         onSaveReward={onSaveRewardHandler}
         onAddDateTime={addDateTimeHandler}
         onAddTestCases={setTestCases}

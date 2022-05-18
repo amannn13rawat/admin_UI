@@ -128,22 +128,24 @@ function MidBody(props) {
     // setEnteredWeightage(event.target.value)
     weightage = event.target.value;
     // props.onSaveReward(enteredWeightage);
-    props.onSaveReward(weightage);
+    props.onSaveReward(weightage,10);
   }
   // console.log(typeof(enteredWeightage))
   // console.log(typeof(points))
-  const testCasesArray = {
+  const testCasesArrayElement = {
     input: enteredInput,
     id: Math.random().toString(),
     output: enteredOutput,
-    // points: Math.floor(enteredWeightage),
     points: weightage,
   };
 
+  const outputTestCasesArrayElement = testCasesArrayElement.input + ":" + testCasesArrayElement.output;
+
   function addHandler() {
     setPopupAddType(!popupAddType);
-    addedTestCases.push(testCasesArray);
-    props.onAddTestCases(addedTestCases);
+    addedTestCases.push(testCasesArrayElement);
+    // props.onAddTestCases(addedTestCases);
+    props.saveTestCase(outputTestCasesArrayElement);
     setEnteredInput("");
     setEnteredOutput("");
     weightage = "";
