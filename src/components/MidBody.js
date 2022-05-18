@@ -129,8 +129,6 @@ function MidBody(props) {
     // setEnteredWeightage(event.target.value)
     weightage = event.target.value;
     // props.onSaveReward(enteredWeightage);
-    totalWeightage =totalWeightage+ parseInt(weightage,10);
-    console.log(totalWeightage);
     props.onSaveReward(weightage);
   }
   // console.log(typeof(enteredWeightage))
@@ -145,19 +143,11 @@ function MidBody(props) {
 
   function addHandler() {
     setPopupAddType(!popupAddType);
-
-    //Putting aaray in addedTestCases
-    // setAddedTestCases((prevTest) => {
-    //   return [...prevTest, testCasesArray];
-    // });
     addedTestCases.push(testCasesArray);
-    // console.log(testCases);
-
     props.onAddTestCases(addedTestCases);
-    // console.log(addedTestCases);
+    totalWeightage=totalWeightage+parseInt(weightage);
     setEnteredInput("");
     setEnteredOutput("");
-    // setEnteredWeightage("");
     weightage = "";
   }
 
@@ -165,12 +155,9 @@ function MidBody(props) {
     setPopupRemoveType(!popupRemoveType);
 
     //Deleting the testCases from addedTestCases
-    // setAddedTestCases((addedTestCases) => {
-    //   const temp = addedTestCases.pop();
-    //   const tempDeletedArray = addedTestCases.filter((e) => e.id !== temp.id);
-    //   return tempDeletedArray;
-    // });
-    //popup testcases from testCases list
+    const len = addedTestCases.length;
+    const deletedTestCasesWeightage = addedTestCases[len - 1].points;
+    totalWeightage = totalWeightage - parseInt(deletedTestCasesWeightage);
     addedTestCases.pop();
   }
 
