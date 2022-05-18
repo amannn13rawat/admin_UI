@@ -8,19 +8,19 @@ import { useState } from "react";
 
 function App() {
   const [questionText, setQuestionText] = useState("");
-  const [defaultReward, setDefaultReward] = useState("");
+  const [defaultReward, setDefaultReward] = useState(0);
   //testing
   const [questionStartDate, setQuestionStartDate] = useState("");
   const [questionEndDate, setQuestionEndDate] = useState("");
   const [testCases, setTestCases] = useState([]);
-  let netWeightage = 0;
 
   function onSaveProblemStatementHandler(problemStatemnet) {
     setQuestionText(problemStatemnet);
   }
 
-  const onSaveRewardHandler = (reward) => {
-    setDefaultReward(reward);
+  const onSaveRewardHandler = (weightage) => {
+    //add the weightage to the prev value of defaultReward
+    setDefaultReward(parseInt(defaultReward) + parseInt(weightage));
   };
   // console.log(defaultReward)
   function addDateTimeHandler(selectStartDate, selectEndDate) {
@@ -31,16 +31,6 @@ function App() {
   const onSaveTestCaseHandler = (testCase) => {
     setTestCases(testCases => [...testCases, testCase]);
   }
-
-  // console.log("Kaam vali array", testCases);
-  const testCaseArrayList = [];
-
-  testCases.map((testCase) => {
-    testCaseArrayList.push(testCase.input + ":" + testCase.output);
-    netWeightage = netWeightage + parseInt(testCase.points);
-  });
-  console.log("testCases Array list",testCaseArrayList)
-  console.log("netweightage",netWeightage)
 
   const backEnd = {
     questionText: questionText,
@@ -56,9 +46,9 @@ function App() {
       ></ProblemStatement>
       <MidBody
         saveTestCase={onSaveTestCaseHandler}
+        saveWeightage={onSaveRewardHandler}
         onSaveReward={onSaveRewardHandler}
         onAddDateTime={addDateTimeHandler}
-        onAddTestCases={setTestCases}
       ></MidBody>
       <BottomBtn
         backEnd={backEnd}
