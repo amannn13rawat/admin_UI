@@ -119,7 +119,7 @@ function MidBody(props) {
   const [popupRemoveType, setPopupRemoveType] = useState(false);
   const [enteredInput, setEnteredInput] = useState("");
   const [enteredOutput, setEnteredOutput] = useState("");
-  // const [enteredWeightage, setEnteredWeightage] = useState("");
+  // const [enteredWeightage, setEnteredWeightage] = useState("");totalWeightag
   // const [addedTestCases, setAddedTestCases] = useState([]);
 
   const addRef = useRef();
@@ -129,7 +129,7 @@ function MidBody(props) {
     // setEnteredWeightage(event.target.value)
     weightage = event.target.value;
     // props.onSaveReward(enteredWeightage);
-    props.onSaveReward(weightage);
+    
   }
   // console.log(typeof(enteredWeightage))
   // console.log(typeof(points))
@@ -146,10 +146,12 @@ function MidBody(props) {
     addedTestCases.push(testCasesArray);
     props.onAddTestCases(addedTestCases);
     totalWeightage=totalWeightage+parseInt(weightage);
+    console.log(totalWeightage)
     setEnteredInput("");
     setEnteredOutput("");
     weightage = "";
   }
+  props.onSaveReward(totalWeightage);
 
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
