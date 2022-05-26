@@ -46,7 +46,7 @@ const ButtonClear = styled.button`
   cursor: pointer;
 `;
 
-function BottomBtn({ backEnd, questionStartDate, questionEndDate }) {
+function BottomBtn({ backEndCall, questionStartDate, questionEndDate }) {
   const [showClickPopup, setShowClickPopup] = useState(false);
   const submitRef = useRef();
 
@@ -57,22 +57,15 @@ function BottomBtn({ backEnd, questionStartDate, questionEndDate }) {
     }
   }
 
-  // if(backEnd.questionText === ''){
-  //   setIsValid(false);
-  // }
-  // {!isValid && console.log("write questionText")}
-
   const questionStartEffectiveTime = questionStartDate;
   const questionEndEffectiveTime = questionEndDate;
 
-  // console.log("bckend reawrd", backEnd.defaultReward);
-  console.log("backend",backEnd);
   async function submitHandler() {
     if (
-      backEnd.questionText &&
-      backEnd.testCases &&
+      backEndCall.questionText &&
+      backEndCall.testCases &&
       questionEndEffectiveTime &&
-      backEnd.defaultReward === 100
+      backEndCall.defaultReward === 100
     ) {
       setShowClickPopup(!showClickPopup);
       try {
@@ -80,23 +73,28 @@ function BottomBtn({ backEnd, questionStartDate, questionEndDate }) {
           ` http://localhost:8084/codingQuestions/addQuestion/startDate/${questionStartEffectiveTime}/endDate/${questionEndEffectiveTime}`,
           {
             method: "POST",
-            body: JSON.stringify(backEnd),
+            body: JSON.stringify(backEndCall),
             headers: {
               "Content-Type": "application/json",
+              Accept: "application/json",
             },
           }
         );
-        const data = await response.json();
-        console.log(data);
+        // const data = await response.json();
+        // console.log(data);
       } catch (error) {
-        console.log(error.message);
+        alert(error.message);
       }
-    } else if (backEnd.defaultReward !== 100) {
-      alert("Default Reward must be 100");
-    } else {
+    } else if (
+      backEndCall.questionText === "" ||
+      backEndCall.testCases === null ||
+      backEndCall.questionEndEffectiveTime === ""
+    ) {
       alert(
         "Please Enter the Problem statement , Test Case and End Date Fields"
       );
+    } else {
+      alert("Total Weightage should be equal to 100");
     }
   }
 

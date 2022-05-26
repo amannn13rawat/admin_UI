@@ -42,7 +42,6 @@ const ButtonSub = styled.button`
   border: none;
   border-radius: 5px;
   padding: 5px 30px;
-
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -55,7 +54,6 @@ const ButtonCancel = styled.button`
   border: none;
   border-radius: 5px;
   padding: 5px 30px;
-
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -68,7 +66,6 @@ const ButtonOkay = styled.button`
   border: none;
   border-radius: 5px;
   padding: 5px 30px;
-
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -84,7 +81,7 @@ function SubmitPopup({ onClosedPopup }) {
     setOpenPopup(!openPopup);
   }
 
-  //Remove Popup by clicking outside in th screen
+  //Disappearing Popup when clicked anywhere on the screen
   useEffect(() => {
     let handler = (event) => {
       if (!popupText.current.contains(event.target)) {
@@ -104,8 +101,10 @@ function SubmitPopup({ onClosedPopup }) {
         <Wrapper>
           <PopupText>Do You Want to Submit the problem Statement?</PopupText>
           <ButtonSubmitContainer>
-            <ButtonSub onClick={submitPopupHandler}>Submit</ButtonSub>
-            <ButtonCancel>Cancel</ButtonCancel>
+            <ButtonSub type="submit" onClick={submitPopupHandler}>
+              Submit
+            </ButtonSub>
+            <ButtonCancel type="cancel">Cancel</ButtonCancel>
           </ButtonSubmitContainer>
         </Wrapper>
       </Container>
@@ -115,7 +114,9 @@ function SubmitPopup({ onClosedPopup }) {
           <Wrapper>
             <PopupText>Successfully submitted the problem statement!</PopupText>
             <ButtonOkayContainer>
-              <ButtonOkay onClick={onClosedPopup}>Okay!</ButtonOkay>
+              <ButtonOkay type="okay" onClick={onClosedPopup}>
+                Okay!
+              </ButtonOkay>
             </ButtonOkayContainer>
           </Wrapper>
         </Container>
@@ -125,3 +126,4 @@ function SubmitPopup({ onClosedPopup }) {
 }
 
 export default SubmitPopup;
+
