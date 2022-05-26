@@ -9,7 +9,6 @@ const ContainerMid = styled.div`
   width: 100%;
   display: flex;
   height: 490px;
-  /* background-color: orange; */
 `;
 
 //BOXES CSS
@@ -50,7 +49,6 @@ const ButtonAdd = styled.button`
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-
   background-color: #00c853;
   width: 130px;
   border: none;
@@ -86,18 +84,17 @@ const ButtonRemove = styled.button`
 `;
 
 //BOX2 CSS
-const ContainerBox2 = styled.div`
+const ContainerTableBox = styled.div`
   flex: 5;
-  /* background-color: yellow; */
 `;
 
-const WrapperBox2 = styled.div`
+const WrapperTableBox = styled.div`
   padding-top: 15px;
   padding-left: 30px;
   padding-right: 70px;
 `;
 
-const ContentBox2 = styled.div`
+const ContentTableBox = styled.div`
   border-radius: 10px;
   background: #c4c4c4;
   padding: 10px 20px;
@@ -108,9 +105,6 @@ const ContentBox2 = styled.div`
   margin-bottom: 5px;
 `;
 
-// const dummyTestCases = [
-//   { input: "Input", output: "Output", id: "g1", points: "Weightage" },
-// ];
 const addedTestCases = [];
 function MidBody(props) {
   const [popupAddType, setPopupAddType] = useState(false);
@@ -121,10 +115,6 @@ function MidBody(props) {
   const [weightage, setWeightage] = useState("");
   const removeRef = useRef();
 
-  function weightageHandler(event) {
-    setWeightage(event.target.value);
-    // props.onSaveReward(weightage,10);
-  }
   const testCasesArrayElement = {
     input: enteredInput,
     id: Math.random().toString(),
@@ -132,27 +122,31 @@ function MidBody(props) {
     points: weightage,
   };
 
-  const outputTestCasesArrayElement = testCasesArrayElement.input + ":" + testCasesArrayElement.output;
+  const backendTestCasesArrayElement =
+    testCasesArrayElement.input + ":" + testCasesArrayElement.output;
 
   function addHandler() {
     setPopupAddType(!popupAddType);
+    // Adding the testCases to addedTestCases
     addedTestCases.push(testCasesArrayElement);
-    props.saveTestCase(outputTestCasesArrayElement);
-    props.saveWeightage(weightage);
+    props.onSaveTestCase(backendTestCasesArrayElement);
+    props.onSaveWeightage(weightage);
     setEnteredInput("");
     setEnteredOutput("");
     setWeightage("");
   }
-  console.log("mid body", addedTestCases);
 
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
-
     //Deleting the testCases from addedTestCases
-    addedTestCases.pop();
+    const deletedTestCase = addedTestCases.pop();
+    // console.log(deletedTestCase.points);
+    props.onDeleteWeightage(deletedTestCase.points);
+    props.onDeleteTestCase(deletedTestCase.id,deletedTestCase)
+    // console.log(deletedTestCase.id)
   }
 
-  //Removing mousedown EVent
+  //Removing mousedown Event fom buttons.
   const handlePopupAdd = (stateReplied, event) => {
     if (!addRef.current.contains(event.target)) {
       setPopupAddType(stateReplied);
@@ -169,32 +163,33 @@ function MidBody(props) {
       <ContainerBoxes>
         <WrapperBoxes>
           <ContentBoxes
-            input="text"
+            aria-label="Input"
+            type="text"
             placeholder="TestCases Input *"
             role="textbox"
             value={enteredInput}
             onChange={(event) => setEnteredInput(event.target.value)}
           ></ContentBoxes>
           <ContentBoxes
-            input="text"
+            type="text"
             placeholder="Expected Output"
             role="textbox"
             value={enteredOutput}
             onChange={(event) => setEnteredOutput(event.target.value)}
           ></ContentBoxes>
           <ContentBoxes
-            input="text"
+            type="text"
             placeholder="Weightage"
             role="textbox"
             value={weightage}
-            onChange={weightageHandler}
+            onChange={(event) => setWeightage(event.target.value)}
           ></ContentBoxes>
         </WrapperBoxes>
       </ContainerBoxes>
 
       <ContainerButton>
         <WrapperButton>
-          <ButtonAdd ref={addRef} onClick={addHandler}>
+          <ButtonAdd type="Add" ref={addRef} onClick={addHandler}>
             Add
           </ButtonAdd>
 
@@ -202,10 +197,10 @@ function MidBody(props) {
             <Popup
               color="#00C853"
               onCallPopup={handlePopupAdd}
-              text="Test cases added successfully!"
+              text="Test cases added successfulwly!"
             ></Popup>
           )}
-          <ButtonRemove ref={removeRef} onClick={removeHandler}>
+          <ButtonRemove type="Remove" ref={removeRef} onClick={removeHandler}>
             Remove
           </ButtonRemove>
           {popupRemoveType && (
@@ -218,12 +213,12 @@ function MidBody(props) {
         </WrapperButton>
       </ContainerButton>
 
-      <ContainerBox2>
-        <WrapperBox2>
-          <ContentBox2>
-            <table>
+      <ContainerTableBox>
+        <WrapperTableBox>
+          <ContentTableBox>
+            <table role="table">
               <thead>
-                <tr>
+                <tr role="row">
                   <th>Input</th>
                   <th>Output</th>
                   <th>Weightage</th>
@@ -231,7 +226,7 @@ function MidBody(props) {
               </thead>
               <tbody>
                 {addedTestCases.map((test) => (
-                  <tr>
+                  <tr role="row">
                     <td>{test.input}</td>
                     <td>{test.output}</td>
                     <td>{test.points}</td>
@@ -239,14 +234,14 @@ function MidBody(props) {
                 ))}
               </tbody>
             </table>
-          </ContentBox2>
+          </ContentTableBox>
           <DateSet
             onSaveDateTime={(selectStartDate, selectEndDate) => {
               props.onAddDateTime(selectStartDate, selectEndDate);
             }}
           ></DateSet>
-        </WrapperBox2>
-      </ContainerBox2>
+        </WrapperTableBox>
+      </ContainerTableBox>
     </ContainerMid>
   );
 }

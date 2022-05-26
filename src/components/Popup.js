@@ -26,6 +26,7 @@ const PopupText = styled.div`
 function Popup({ color, text, onCallPopup }) {
   let popupText = useRef();
 
+  //Disappearing Popup when clicked anywhere on the screen
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
       if (!popupText.current.contains(event.target)) {
@@ -33,6 +34,7 @@ function Popup({ color, text, onCallPopup }) {
       }
     });
   });
+
   return (
     <PopupContainer bgcolor={color} ref={popupText}>
       <PopupText>{text}</PopupText>
