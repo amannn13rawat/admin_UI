@@ -138,12 +138,10 @@ function MidBody(props) {
 
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
-    //Deleting the testCases from addedTestCases
     const deletedTestCase = addedTestCases.pop();
-    // console.log(deletedTestCase.points);
+    console.log("Deleted Test Case", deletedTestCase);
     props.onDeleteWeightage(deletedTestCase.points);
-    props.onDeleteTestCase(deletedTestCase.id,deletedTestCase)
-    // console.log(deletedTestCase.id)
+    props.onDeleteTestCase(deletedTestCase)
   }
 
   //Removing mousedown Event fom buttons.

@@ -24,17 +24,17 @@ function App() {
   function onDeleteWeightageHandler(weightage) {
     setDefaultReward(parseInt(defaultReward) - parseInt(weightage));
   }
-  console.log(defaultReward);
 
-  function onDeleteTestCaseHandler(deletedTestCaseId, deleteTestCase) {
+  function onDeleteTestCaseHandler(deleteTestCase) {
     // console.log(deletedTestCaseId)
     const deletedTestCase = deleteTestCase.input + ":" + deleteTestCase.output;
-    console.log("yeh test cases delete krna hae", deletedTestCase);
+    // console.log("yeh test cases delete krna hae", deletedTestCase);
     setTestCases((prevTest) => {
-      return prevTest.filter((test) => test.id !== deletedTestCaseId);
+      return prevTest.filter((test) => test !== deletedTestCase);
     });
   }
-  console.log("testcase jo back end jayenge", testCases);
+
+  console.log(testCases);
 
   function addDateTimeHandler(selectStartDate, selectEndDate) {
     setQuestionStartDate(selectStartDate);
