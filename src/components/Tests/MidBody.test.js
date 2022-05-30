@@ -4,6 +4,8 @@ import DateSet from "../DateSet";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
+import act from 'react-dom/test-utils'
+import mount from 'react-mount';
 
 describe("Testing MidBody", () => {
 
@@ -75,18 +77,6 @@ describe("Testing MidBody", () => {
       expect(weightageElement).toHaveValue("100");
     });
   });
-
-  test("When click on remove remove text should be in document", () => {
-    render(<MidBody></MidBody>);
-    const removeButton = screen.getByRole("button", { name: /remove/i });
-
-    fireEvent.click(removeButton);
-    expect(
-      screen.getByText("Test cases removed successfully!")
-    ).toBeInTheDocument();
-
-    fireEvent.click(removeButton);
-  });
 });
 
 describe("Popup Testing", () => {
@@ -157,3 +147,5 @@ describe("DatePicker Testing", () => {
     expect(endDate).toHaveValue("2022-05-26 07:00");
   });
 });
+
+

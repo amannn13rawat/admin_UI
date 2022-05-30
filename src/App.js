@@ -26,15 +26,16 @@ function App() {
   }
 
   function onDeleteTestCaseHandler(deleteTestCase) {
-    // console.log(deletedTestCaseId)
     const deletedTestCase = deleteTestCase.input + ":" + deleteTestCase.output;
-    // console.log("yeh test cases delete krna hae", deletedTestCase);
     setTestCases((prevTest) => {
       return prevTest.filter((test) => test !== deletedTestCase);
     });
   }
 
-  console.log(testCases);
+function onRemoveTestCasesHandler(){
+  setTestCases([]);
+  setDefaultReward(0);
+}
 
   function addDateTimeHandler(selectStartDate, selectEndDate) {
     setQuestionStartDate(selectStartDate);
@@ -63,6 +64,7 @@ function App() {
         onSaveWeightage={onSaveRewardHandler}
         onDeleteWeightage={onDeleteWeightageHandler}
         onDeleteTestCase={onDeleteTestCaseHandler}
+        onRemoveTestCases={onRemoveTestCasesHandler}
         onSaveReward={onSaveRewardHandler}
         onAddDateTime={addDateTimeHandler}
       ></MidBody>

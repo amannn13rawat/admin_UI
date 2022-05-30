@@ -7,12 +7,19 @@ import moment from "moment";
 const ContainerDateSet = styled.div`
   border-radius: 10px;
   background: #c4c4c4;
-  padding: 10px 20px;
+  padding: 5px 20px;
   width: 100%;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Label=styled.label`
+  font-family: "Times New Roman", Times, serif;
+  font-size: small;
+  font-weight: normal;
+  
 `;
 
 function DateSet(props) {
@@ -42,6 +49,7 @@ function DateSet(props) {
 
   return (
     <ContainerDateSet>
+      <Label > Start Date and Time 
       <DatePicker
         selected={selectedStartDate}
         onChange={startDateChangeHandler}
@@ -57,6 +65,8 @@ function DateSet(props) {
         timeIntervals={10}
         timeCaption="time"
       ></DatePicker>
+      </Label>
+      <Label> End Date and Time *
       <DatePicker
         selected={selectedEndDate}
         onChange={endDateChangeHandler}
@@ -72,6 +82,7 @@ function DateSet(props) {
         timeIntervals={10}
         timeCaption="time"
       ></DatePicker>
+      </Label>
     </ContainerDateSet>
   );
 }

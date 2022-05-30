@@ -83,7 +83,7 @@ function BottomBtn({ backEndCall, questionStartDate, questionEndDate }) {
         // const data = await response.json();
         // console.log(data);
       } catch (error) {
-        alert(error.message);
+        alert(error.message );
       }
     } else if (
       backEndCall.questionText === "" ||
@@ -107,7 +107,7 @@ function BottomBtn({ backEndCall, questionStartDate, questionEndDate }) {
         {showClickPopup && (
           <SubmitPopup onClosedPopup={closePopupHandler}></SubmitPopup>
         )}
-        <ButtonClear>Clear</ButtonClear>
+        <ButtonClear  onClick={() => window.location.reload(false)}>Clear</ButtonClear>
       </Wrapper>
     </Container>
   );

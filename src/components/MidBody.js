@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import styled from "styled-components";
 import Popup from "./Popup";
 import DateSet from "./DateSet";
 import "./TableList.css";
+
 
 //Midbody css
 const ContainerMid = styled.div`
@@ -105,19 +106,20 @@ const ContentTableBox = styled.div`
   margin-bottom: 5px;
 `;
 
-const addedTestCases = [];
+// let addedTestCases = [];
 function MidBody(props) {
   const [popupAddType, setPopupAddType] = useState(false);
   const [popupRemoveType, setPopupRemoveType] = useState(false);
   const [enteredInput, setEnteredInput] = useState("");
   const [enteredOutput, setEnteredOutput] = useState("");
+  const [addedTestCases, setaddedTestCases] = useState([]);
   const addRef = useRef();
   const [weightage, setWeightage] = useState("");
   const removeRef = useRef();
 
   const testCasesArrayElement = {
     input: enteredInput,
-    id: Math.random().toString(),
+    id: Math.random(),
     output: enteredOutput,
     points: weightage,
   };
@@ -128,7 +130,8 @@ function MidBody(props) {
   function addHandler() {
     setPopupAddType(!popupAddType);
     // Adding the testCases to addedTestCases
-    addedTestCases.push(testCasesArrayElement);
+    // addedTestCases.push(testCasesArrayElement);
+    setaddedTestCases([...addedTestCases, testCasesArrayElement]);
     props.onSaveTestCase(backendTestCasesArrayElement);
     props.onSaveWeightage(weightage);
     setEnteredInput("");
@@ -138,10 +141,8 @@ function MidBody(props) {
 
   function removeHandler() {
     setPopupRemoveType(!popupRemoveType);
-    const deletedTestCase = addedTestCases.pop();
-    console.log("Deleted Test Case", deletedTestCase);
-    props.onDeleteWeightage(deletedTestCase.points);
-    props.onDeleteTestCase(deletedTestCase)
+    setaddedTestCases([]);
+    props.onRemoveTestCases();
   }
 
   //Removing mousedown Event fom buttons.
@@ -154,6 +155,22 @@ function MidBody(props) {
     if (!removeRef.current.contains(event.target)) {
       setPopupRemoveType(stateReplied);
     }
+  };
+
+  //  console.log(addedTestCases);
+  const handleDeleteClickHandler = (testId) => {
+    console.log("Test ID to be deleted", testId);
+    const newAddedTestCases = [...addedTestCases];
+
+    const index = addedTestCases.findIndex((test) => test.id === testId);
+    // console.log("Index of the test case to be deleted", index);
+    const deletedTestCase = addedTestCases[index];
+    console.log("Deleted Test Case", deletedTestCase);
+    newAddedTestCases.splice(index, 1);
+    // console.log("New Added Test Cases", newAddedTestCases);
+    setaddedTestCases(newAddedTestCases);
+    props.onDeleteWeightage(deletedTestCase.points);
+    props.onDeleteTestCase(deletedTestCase);
   };
 
   return (
@@ -214,24 +231,36 @@ function MidBody(props) {
       <ContainerTableBox>
         <WrapperTableBox>
           <ContentTableBox>
-            <table role="table">
-              <thead>
-                <tr role="row">
-                  <th>Input</th>
-                  <th>Output</th>
-                  <th>Weightage</th>
-                </tr>
-              </thead>
-              <tbody>
-                {addedTestCases.map((test) => (
+            <form>
+              <table role="table">
+                <thead>
                   <tr role="row">
-                    <td>{test.input}</td>
-                    <td>{test.output}</td>
-                    <td>{test.points}</td>
+                    <th>Input</th>
+                    <th>Output</th>
+                    <th>Weightage</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {addedTestCases.map((test) => (
+                    <tr role="row">
+                      <td>{test.input}</td>
+                      <td>{test.output}</td>
+                      <td>{test.points}</td>
+                      <td>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteClickHandler(test.id)}
+                          style={{backgroundColor:"rgb(117, 201, 250)", border: "none", color: "white", padding: "5px 5px", borderRadius: "5px", cursor: "pointer"}}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </form>
           </ContentTableBox>
           <DateSet
             onSaveDateTime={(selectStartDate, selectEndDate) => {
