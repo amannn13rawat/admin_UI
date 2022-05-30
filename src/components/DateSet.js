@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
+
 const ContainerDateSet = styled.div`
   border-radius: 10px;
   background: #c4c4c4;
@@ -16,7 +17,7 @@ const ContainerDateSet = styled.div`
 `;
 
 const Label=styled.label`
-  font-family: "Times New Roman", Times, serif;
+ font-family: 'Urbanist', sans-serif;
   font-size: small;
   font-weight: normal;
   

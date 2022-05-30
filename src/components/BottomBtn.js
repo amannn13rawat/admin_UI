@@ -48,6 +48,7 @@ const ButtonClear = styled.button`
 
 function BottomBtn({ backEndCall, questionStartDate, questionEndDate }) {
   const [showClickPopup, setShowClickPopup] = useState(false);
+  const [enableSubmit, setEnableSubmit] = useState(false);
   const submitRef = useRef();
 
   //to removee mouseClickdown event
@@ -101,7 +102,7 @@ function BottomBtn({ backEndCall, questionStartDate, questionEndDate }) {
   return (
     <Container>
       <Wrapper>
-        <ButtonSubmit ref={submitRef} onClick={submitHandler}>
+        <ButtonSubmit ref={submitRef} onClick={submitHandler} disabled={!enableSubmit}>
           Submit
         </ButtonSubmit>
         {showClickPopup && (

@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Popup from "./Popup";
 import DateSet from "./DateSet";
 import "./TableList.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 //Midbody css
 const ContainerMid = styled.div`
@@ -50,7 +51,7 @@ const ButtonAdd = styled.button`
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  background-color: #00c853;
+  background-color: ${(props) => (props.enableAdd ? "#00c853" : "gray")};
   width: 130px;
   border: none;
   border-radius: 5px;
@@ -113,8 +114,10 @@ function MidBody(props) {
   const [enteredInput, setEnteredInput] = useState("");
   const [enteredOutput, setEnteredOutput] = useState("");
   const [addedTestCases, setaddedTestCases] = useState([]);
-  const addRef = useRef();
   const [weightage, setWeightage] = useState("");
+  const [enableAdd, setEnableAdd] = useState(false);
+  const [enableRemove, setEnableRemove] = useState(false);
+  const addRef = useRef();
   const removeRef = useRef();
 
   const testCasesArrayElement = {
@@ -128,6 +131,7 @@ function MidBody(props) {
     testCasesArrayElement.input + ":" + testCasesArrayElement.output;
 
   function addHandler() {
+    setEnableAdd(false);
     setPopupAddType(!popupAddType);
     // Adding the testCases to addedTestCases
     // addedTestCases.push(testCasesArrayElement);
@@ -144,6 +148,17 @@ function MidBody(props) {
     setaddedTestCases([]);
     props.onRemoveTestCases();
   }
+  const handleDeleteClickHandler = (testId) => {
+    const newAddedTestCases = [...addedTestCases];
+    const index = addedTestCases.findIndex((test) => test.id === testId);
+
+    const deletedTestCase = addedTestCases[index];
+    newAddedTestCases.splice(index, 1);
+
+    setaddedTestCases(newAddedTestCases);
+    props.onDeleteWeightage(deletedTestCase.points);
+    props.onDeleteTestCase(deletedTestCase);
+  };
 
   //Removing mousedown Event fom buttons.
   const handlePopupAdd = (stateReplied, event) => {
@@ -157,20 +172,40 @@ function MidBody(props) {
     }
   };
 
-  //  console.log(addedTestCases);
-  const handleDeleteClickHandler = (testId) => {
-    console.log("Test ID to be deleted", testId);
-    const newAddedTestCases = [...addedTestCases];
+  const enteredInputHandler = (event) => {
+    setEnteredInput(event.target.value);
+    if (
+      event.target.value.trim().length > 0 &&
+      enteredOutput.length > 0 &&
+      weightage.length > 0
+    ) {
+      setEnableAdd(true);
+      setEnableRemove(true);
+    }
+  };
 
-    const index = addedTestCases.findIndex((test) => test.id === testId);
-    // console.log("Index of the test case to be deleted", index);
-    const deletedTestCase = addedTestCases[index];
-    console.log("Deleted Test Case", deletedTestCase);
-    newAddedTestCases.splice(index, 1);
-    // console.log("New Added Test Cases", newAddedTestCases);
-    setaddedTestCases(newAddedTestCases);
-    props.onDeleteWeightage(deletedTestCase.points);
-    props.onDeleteTestCase(deletedTestCase);
+  const enteredOutputHandler = (event) => {
+    setEnteredOutput(event.target.value);
+    if (
+      event.target.value.trim().length > 0 &&
+      enteredInput.length > 0 &&
+      weightage.length > 0
+    ) {
+      setEnableAdd(true);
+      setEnableRemove(true);
+    }
+  };
+
+  const enteredWeightageHandler = (event) => {
+    setWeightage(event.target.value);
+    if (
+      event.target.value.trim().length > 0 &&
+      enteredInput.length > 0 &&
+      enteredOutput.length > 0
+    ) {
+      setEnableAdd(true);
+      setEnableRemove(true);
+    }
   };
 
   return (
@@ -183,28 +218,34 @@ function MidBody(props) {
             placeholder="TestCases Input *"
             role="textbox"
             value={enteredInput}
-            onChange={(event) => setEnteredInput(event.target.value)}
+            onChange={enteredInputHandler}
           ></ContentBoxes>
           <ContentBoxes
             type="text"
             placeholder="Expected Output"
             role="textbox"
             value={enteredOutput}
-            onChange={(event) => setEnteredOutput(event.target.value)}
+            onChange={enteredOutputHandler}
           ></ContentBoxes>
           <ContentBoxes
             type="text"
             placeholder="Weightage"
             role="textbox"
             value={weightage}
-            onChange={(event) => setWeightage(event.target.value)}
+            onChange={enteredWeightageHandler}
           ></ContentBoxes>
         </WrapperBoxes>
       </ContainerBoxes>
 
       <ContainerButton>
         <WrapperButton>
-          <ButtonAdd type="Add" ref={addRef} onClick={addHandler}>
+          <ButtonAdd
+            type="Add"
+            ref={addRef}
+            onClick={addHandler}
+            disabled={!enableAdd}
+            enableAdd={enableAdd}
+          >
             Add
           </ButtonAdd>
 
@@ -215,8 +256,13 @@ function MidBody(props) {
               text="Test cases added successfulwly!"
             ></Popup>
           )}
-          <ButtonRemove type="Remove" ref={removeRef} onClick={removeHandler}>
-            Remove
+          <ButtonRemove
+            type="Remove"
+            ref={removeRef}
+            onClick={removeHandler}
+            disabled={!enableRemove}
+          >
+            Remove All
           </ButtonRemove>
           {popupRemoveType && (
             <Popup
@@ -251,9 +297,16 @@ function MidBody(props) {
                         <button
                           type="button"
                           onClick={() => handleDeleteClickHandler(test.id)}
-                          style={{backgroundColor:"rgb(117, 201, 250)", border: "none", color: "white", padding: "5px 5px", borderRadius: "5px", cursor: "pointer"}}
+                          style={{
+                            backgroundColor: "rgb(117, 201, 250)",
+                            border: "none",
+                            color: "white",
+                            padding: "4px 4px",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                          }}
                         >
-                          Delete
+                          <FontAwesomeIcon icon={faTrash} />
                         </button>
                       </td>
                     </tr>
