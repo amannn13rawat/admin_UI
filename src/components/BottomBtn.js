@@ -58,9 +58,10 @@ function BottomBtn({ backEndCall, questionStartDate, questionEndDate }) {
     }
   }
 
+  
   const questionStartEffectiveTime = questionStartDate;
   const questionEndEffectiveTime = questionEndDate;
-
+console.log(questionStartEffectiveTime);
   async function submitHandler() {
     if (
       backEndCall.questionText &&
