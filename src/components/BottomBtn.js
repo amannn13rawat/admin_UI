@@ -1,3 +1,4 @@
+import { grey } from "@mui/material/colors";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import SubmitPopup from "./SubmitPopup";
@@ -17,7 +18,7 @@ const Wrapper = styled.div`
 
 const ButtonSubmit = styled.button`
   margin-right: 10px;
-  background-color: #00c853;
+  background-color: ${(props) => (props.buttonEnable ? "#00c853" : "grey")};
   width: 130px;
   border: none;
   border-radius: 5px;
@@ -48,7 +49,6 @@ const ButtonClear = styled.button`
 
 function BottomBtn({ backEndCall, questionStartDate, questionEndDate }) {
   const [showClickPopup, setShowClickPopup] = useState(false);
-  const [enableSubmit, setEnableSubmit] = useState(false);
   const submitRef = useRef();
 
   //to removee mouseClickdown event
@@ -84,12 +84,12 @@ function BottomBtn({ backEndCall, questionStartDate, questionEndDate }) {
         // const data = await response.json();
         // console.log(data);
       } catch (error) {
-        alert(error.message );
+        alert(error.message);
       }
     } else if (
       backEndCall.questionText === "" ||
       backEndCall.testCases === null ||
-      backEndCall.questionEndEffectiveTime === ""
+      questionEndEffectiveTime === ""
     ) {
       alert(
         "Please Enter the Problem statement , Test Case and End Date Fields"
@@ -102,13 +102,20 @@ function BottomBtn({ backEndCall, questionStartDate, questionEndDate }) {
   return (
     <Container>
       <Wrapper>
-        <ButtonSubmit ref={submitRef} onClick={submitHandler} disabled={!enableSubmit}>
+        <ButtonSubmit
+          ref={submitRef}
+          onClick={submitHandler}
+          disabled={!(backEndCall.testCases.length>0&&backEndCall.questionText!==""&&questionEndEffectiveTime!=="")}
+          buttonEnable={backEndCall.testCases.length>0&&backEndCall.questionText!==""&&questionEndEffectiveTime!==""}
+        >
           Submit
         </ButtonSubmit>
         {showClickPopup && (
           <SubmitPopup onClosedPopup={closePopupHandler}></SubmitPopup>
         )}
-        <ButtonClear  onClick={() => window.location.reload(false)}>Clear</ButtonClear>
+        <ButtonClear onClick={() => window.location.reload(false)}>
+          Clear
+        </ButtonClear>
       </Wrapper>
     </Container>
   );
