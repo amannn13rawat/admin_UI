@@ -38,13 +38,13 @@ describe("Testing MidBody", () => {
     const testMidBodyAddButton = screen.getByRole("button", { name: "Add" });
     expect(testMidBodyAddButton).toBeInTheDocument();
     expect(testMidBodyAddButton).toHaveAttribute("type", "Add");
-    expect(testMidBodyAddButton).toHaveStyle({ backgroundColor: "#00c853" });
+
     const testMidBodyRemoveButton = screen.getByRole("button", {
-      name: "Remove",
+      name: "Remove All",
     });
     expect(testMidBodyRemoveButton).toBeInTheDocument();
     expect(testMidBodyRemoveButton).toHaveAttribute("type", "Remove");
-    expect(testMidBodyRemoveButton).toHaveStyle({ backgroundColor: "#b71c1c" });
+ 
   });
 
   test("render if the table is present in UI", () => {

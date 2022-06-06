@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-
+/**
+ * SubmitPopup component 
+ * @author AR097763
+ */
 const Container = styled.div`
   background-color: #0d47a1;
   position: fixed;
@@ -73,15 +76,29 @@ const ButtonOkay = styled.button`
   background-color: #00c853;
 `;
 
+/**
+ * @typedef PropType
+ * @property {function} onClosedPopup - function to call when popup is closed
+ * @returns {JSX.Element}
+ */
 function SubmitPopup({ onClosedPopup }) {
+  /**
+   * @param openPopup - boolean to open popup
+   */
   const [openPopup, setOpenPopup] = useState(false);
   let popupText = useRef();
 
+  /**
+   * @description submitPopupHandler - function to handle submit popup
+   */
   function submitPopupHandler() {
     setOpenPopup(!openPopup);
   }
 
-  //Disappearing Popup when clicked anywhere on the screen
+ /** 
+  * @description - function to remove submitPopup when clicked anywhere in the screen.
+  */
+ /* istanbul ignore next */
   useEffect(() => {
     let handler = (event) => {
       if (!popupText.current.contains(event.target)) {
@@ -126,4 +143,3 @@ function SubmitPopup({ onClosedPopup }) {
 }
 
 export default SubmitPopup;
-

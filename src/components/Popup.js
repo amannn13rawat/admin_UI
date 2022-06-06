@@ -1,6 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
-
+/**
+ * Popup component
+ * 
+ * @author AR097763
+ */
 
 const PopupContainer = styled.div`
   top: 57px;
@@ -23,10 +27,20 @@ const PopupText = styled.div`
   font-size: 13px;
 `;
 
+/**
+ * 
+ * @typedef PropType
+ * @property {string} color - color of the popup
+ * @property {string} text - text of the popup
+ * @property {function} onCallPopup - function to call popup 
+ * @returns {JSX.Element}
+ */
 function Popup({ color, text, onCallPopup }) {
   let popupText = useRef();
 
-  //Disappearing Popup when clicked anywhere on the screen
+  /**
+   * Disappearing Popup when clicked anywhere on the screen
+   */
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
       if (!popupText.current.contains(event.target)) {
